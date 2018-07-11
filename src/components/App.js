@@ -20,7 +20,7 @@ export default class extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className="app">
                 <p>Hello, world!</p>
                 {

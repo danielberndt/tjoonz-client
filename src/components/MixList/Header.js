@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class extends Component {
     render() {
-        return(
+        return (
             <div className="mix-list-header">
                 <div><span className="mix-artwork"></span></div>
                 <div><span className="mix-title">Title</span></div>

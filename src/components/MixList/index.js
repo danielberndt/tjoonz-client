@@ -4,7 +4,7 @@ import Item from './Item';
 
 export default class extends Component {
     render() {
-        return(
+        return (
             <div className="mix-list">
                 <Header />
                 <div className="mix-list-items">
