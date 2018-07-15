@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import Navigation from './Navigation';
+import Header from './Header';
 
 const Player = () => (
     <div id="player">Player</div>
-);
-
-const Footer = () => (
-    <div id="footer">Footer</div>
 );
 
 export default class extends Component {
@@ -43,10 +39,9 @@ export default class extends Component {
     render() {
         return (
             <div className="app">
-                <Player />
-                <Navigation />
+                <Header />
                 { this.props.children }
-                <Footer />
+                <Player />
             </div>
         );
     }

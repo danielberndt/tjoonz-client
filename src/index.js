@@ -10,7 +10,7 @@ const Root = () => (
         <App>
             <Switch>
                 <Route exact path="/" component={ layouts.Home } />
-                <Route path="/mix/:slug/" component={ layouts.Mix } />
+                <Route path="/mix/:slug" component={ layouts.Mix } />
                 <Route path="/search" component={ layouts.Triple } />
                 <Route path="/chart" component={ layouts.Double } />
                 <Route path="/my" component={ layouts.Double } />
