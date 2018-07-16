@@ -39,25 +39,28 @@ export default class extends Component {
     }
 
     componentDidMount() {
-        const genres = this.loadFilters( 'genre' );
-        const artists = this.loadFilters( 'artist' );
-        const tags = this.loadFilters( 'tags' );
+        const genres = this.loadFilters( 'genre', 10 );
+        const artists = this.loadFilters( 'artist', 10 );
+        const tags = this.loadFilters( 'tags', 10 );
         Promise.all([ genres, artists, tags ])
             .then( () => this.setState({ loading : false }, () => console.log('all done', this.state.filters)));
     }
 
-    loadFilters = filter => {
-        return this._fetchPage( filter, 1 ).then( list => {
-            this.setState({
-                filters : Object.assign( {}, this.state.filters, {[ filter ] : list })
-            })
-        });
+    loadFilters = ( filter, top = 10 ) => {
+        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ filter }?per_page=${ top }&page=1&orderby=count&order=desc` )
+            .then( response => response.json() )
+            .then( exclude => this._fetchPage( filter, 1, exclude.map( term => term.id ) ).then( list => {
+                this.setState({
+                    filters : Object.assign( {}, this.state.filters, {[ filter ] : [ ...exclude, ...list ] })
+                })
+            }))
+        ;
     }
 
-    _fetchPage = ( filter, page ) => {
-        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ filter }?per_page=100&page=${ page++ }` )
+    _fetchPage = ( filter, page, exclude = [] ) => {
+        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ filter }?per_page=100&page=${ page++ }&orderby=name&order=asc${ exclude.length > 0 ? `&exclude=${ exclude.join( ',' ) }` : '' }` )
             .then( response => response.json() )
-            .then( currentPage => currentPage.length === 0 ? currentPage : this._fetchPage( filter, page ).then( nextPage => [ ...currentPage, ...nextPage ] ));
+            .then( currentPage => currentPage.length === 0 ? currentPage : this._fetchPage( filter, page, exclude ).then( nextPage => [ ...currentPage, ...nextPage ] ));
     }
 
     render() {
