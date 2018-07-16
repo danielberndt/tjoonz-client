@@ -7,7 +7,7 @@ export default class extends Component {
                 <button>&hellip;</button>
                 <ul>
                     {
-                        this.props.children.map( child => <li>{ child }</li> )
+                        this.props.children.map( ( child, index ) => <li key={ index }>{ child }</li> )
                     }
                 </ul>
             </div>

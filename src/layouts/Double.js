@@ -19,7 +19,8 @@ export default class extends Component {
                         </span>
                     </div>
                     <div className="panel">
-                        <span>
+                        <h1>This is a title Right Here</h1>
+                        <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas volutpat sollicitudin sapien eget eleifend. Curabitur ac euismod leo. Integer rhoncus lacinia aliquam. Vivamus eget est non erat dapibus ornare quis at augue. Curabitur vestibulum sapien non eros scelerisque, et eleifend justo bibendum. Pellentesque facilisis, nunc vel egestas mollis, nunc lacus semper leo, vitae euismod massa ante sed magna. Integer id tempor nulla, id cursus lacus. Fusce non leo sit amet lorem placerat facilisis in at velit. Phasellus ut ornare libero.
 
     Praesent tincidunt sapien porttitor ipsum imperdiet tristique. Sed dictum vitae augue at aliquet. Aenean congue luctus eros, ut laoreet enim venenatis lacinia. Suspendisse quis turpis id diam efficitur sollicitudin tristique ac ex. Sed imperdiet tellus augue, non porta lectus gravida eget. Phasellus at consequat nulla, posuere placerat lectus. Aliquam tristique sit amet libero at pretium. Vivamus aliquam lobortis scelerisque. Sed sit amet ullamcorper arcu, id sollicitudin leo. Integer vestibulum vitae libero in hendrerit. Nullam finibus odio a leo lacinia mattis. Duis dapibus nisl felis, at mollis erat feugiat vitae. Cras mi felis, consectetur et suscipit et, viverra et nisi. Pellentesque eu magna in sapien malesuada aliquet sit amet a quam. Duis sapien neque, tristique a elit in, iaculis egestas purus. Sed et scelerisque massa.
@@ -29,7 +30,7 @@ export default class extends Component {
     Morbi sollicitudin tempus lectus. Curabitur et diam lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla aliquet, mi rhoncus ultrices suscipit, tellus mauris dapibus lectus, volutpat vulputate metus ipsum nec ante. Integer maximus pulvinar justo, hendrerit venenatis tellus feugiat sit amet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque volutpat, sapien id convallis placerat, neque felis laoreet odio, id convallis tellus augue eget nisi. Vivamus eu varius metus. Sed a vehicula est. Nulla semper purus nec nisi vehicula condimentum. Mauris est nunc, rhoncus quis consequat id, dignissim ut leo. Donec dapibus pharetra mi, eget porttitor quam maximus a. Praesent sem tortor, hendrerit cursus venenatis sit amet, egestas non libero. Cras cursus libero nec volutpat mollis. Aliquam porttitor, justo ut posuere ultrices, nisl augue suscipit nulla, eu blandit erat lacus ut turpis. Sed nec tellus tincidunt, laoreet eros at, interdum dolor.
 
     Nulla porta porttitor massa, in consectetur arcu hendrerit non. Phasellus quis ultrices lectus. Pellentesque mattis felis et finibus eleifend. Morbi tristique orci at augue tincidunt, at interdum dui congue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum eget lacus sed urna varius pretium. In magna dolor, eleifend eget lectus non, volutpat venenatis ex.
-                        </span>
+                        </p>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Abel');
 body {
     position: absolute;
     top: 0;
@@ -6,10 +7,15 @@ body {
     height: 100%;
     margin: 0;
     font-size: 17px;
-    font-family: 'Roboto';
+    font-family: 'Abel', sans-serif;
+    font-weight: 100;
     color: #cad1d9;
     background-color: #1a1f24;
     overflow-y: scroll;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
 }
 
 button {
