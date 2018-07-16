@@ -11,7 +11,7 @@ const Root = () => (
             <Switch>
                 <Route exact path="/" component={ layouts.Home } />
                 <Route path="/mix/:slug" component={ layouts.Mix } />
-                <Route path="/search" component={ layouts.Triple } />
+                <Route path="/search" component={ layouts.Search } />
                 <Route path="/chart" component={ layouts.Double } />
                 <Route path="/my" component={ layouts.Double } />
                 <Route path="/about" component={ layouts.Single } />
