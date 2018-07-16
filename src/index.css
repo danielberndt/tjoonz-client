@@ -51,7 +51,7 @@ button {
     padding-bottom: 100px;
 }
 
-.layout > div {
+.layout .wrap {
     display: grid;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -60,14 +60,17 @@ button {
 .layout-double > div { grid-template-columns: 280px auto; }
 .layout-triple > div { grid-template-columns: 220px auto 280px; }
 
-.layout .panel {
+.layout .wrap > div,
+.layout .panel-scroll-content {
     padding-left: 15px;
     padding-right: 15px;
 }
-.layout .panel:first-child {
+.layout .wrap > div:first-child,
+.layout .wrap > div:first-child .panel-scroll-content {
     padding-left: 0
 }
-.layout .panel:last-child {
+.layout .wrap > div:last-child,
+.layout .wrap > div:last-child .panel-scroll-content {
     padding-right: 0
 }
 
@@ -82,4 +85,13 @@ button {
     width: 100%;
     height: 100px;
     background-color: #0e1013;
+}
+
+.layout .panel-scroll {
+    position: fixed;
+    top: 0;
+    width: 220px;
+    height: 100vh;
+    padding-top: 76px;
+    padding-bottom: 130px;
 }

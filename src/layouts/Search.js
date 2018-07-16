@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ScrollPanel from '../components/ScrollPanel';
 
 export default class extends Component {
     constructor( props ) {
@@ -43,7 +44,7 @@ export default class extends Component {
         const artists = this.loadFilters( 'artist', 10 );
         const tags = this.loadFilters( 'tags', 10 );
         Promise.all([ genres, artists, tags ])
-            .then( () => this.setState({ loading : false }, () => console.log('all done', this.state.filters)));
+            .then( () => this.setState({ loading : false }));
     }
 
     loadFilters = ( filter, top = 10 ) => {
@@ -68,21 +69,23 @@ export default class extends Component {
             <div className="layout layout-triple">
                 <div className="wrap">
                     <div className="panel">
-                        <div className="filters">
-                            <big>Genres</big>
-                            { this.state.filters.genre.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: filter.name }}></div> ) }
-                        </div>
-                        <div className="filters">
-                            <big>Artists</big>
-                            { this.state.filters.artist.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: filter.name }}></div> ) }
-                        </div>
-                        <div className="filters">
-                            <big>Tags</big>
-                            { this.state.filters.tags.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: filter.name }}></div> ) }
-                        </div>
+                        <ScrollPanel>
+                            <div className="filters">
+                                <big>Genres</big>
+                                { this.state.filters.genre.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: `<span>${ filter.name }</span> ${ filter.count }` }}></div> ) }
+                            </div>
+                            <div className="filters">
+                                <big>Artists</big>
+                                { this.state.filters.artist.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: filter.name }}></div> ) }
+                            </div>
+                            <div className="filters">
+                                <big>Tags</big>
+                                { this.state.filters.tags.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: filter.name }}></div> ) }
+                            </div>
+                        </ScrollPanel>
                     </div>
                     <div className="panel">
-                        
+                    { this.state.filters.artist.map( ( filter, index ) => <div key={ index } dangerouslySetInnerHTML={{ __html: filter.name }}></div> ) }
                     </div>
                     <div className="panel">
                         
