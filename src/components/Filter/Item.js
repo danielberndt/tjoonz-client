@@ -11,12 +11,12 @@ export default class extends Component {
     toggle = () => {
         this.setState({
             checked : !this.state.checked
-        }, () => this.props.onToggle( 'genres', this.props.id, this.state.checked ) );
+        }, () => this.props.onToggle( this.props.taxonomy, this.props.id, this.state.checked ) );
     }
 
     render() {
         return (
-            <div className={ `filter-item ${ this.props.active ? 'active' : '' }` } id={ `filter-genre-${ this.props.id }` }>
+            <div className={ `filter-item ${ this.props.active ? 'active' : '' }` } id={ `filter-${ this.props.taxonomy }-${ this.props.id }` }>
                 <label>
                     <input type="checkbox" checked={ this.state.checked } onChange={ this.toggle } />
                     <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : this.props.active ? `&times;` : this.props.count }}></span>

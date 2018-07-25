@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactAutocomplete from 'react-autocomplete';
+import Autocomplete from './Autocomplete';
 import Item from './Item';
 import ScrollPanel from '../ScrollPanel';
 import './style.css';
@@ -9,10 +9,15 @@ export default class extends Component {
         super( props );
         this.state = {
             loading : true,
+            genresHidden : true,
+            autocomplete : {
+                artists : '',
+                tags    : ''
+            },
             andRelation : {
-                genres : true,
-                artists : true,
-                tags : false
+                genres  : this.props.filter.genres ? this.props.filter.genres.and : true,
+                artists : this.props.filter.artists ? this.props.filter.artists.and : true,
+                tags    : this.props.filter.tags ? this.props.filter.tags.and : false
             },
             filters : {
                 genre      : [], // `genre` is singular because of WordPress taxonomy registration
@@ -37,8 +42,8 @@ export default class extends Component {
     componentDidMount() {
         const genres = this.loadAvailableFilters( 'genre', 10 );
         const artists = this.loadAvailableFilters( 'artist', 10 );
-        //const tags = this.loadFilters( 'tags', 10 );
-        Promise.all([ genres], artists)//, tags ])
+        const tags = this.loadAvailableFilters( 'tags', 10 );
+        Promise.all([ genres, artists, tags ])
             .then( () => this.setState({ loading : false }));
     }
 
@@ -67,29 +72,82 @@ export default class extends Component {
     }
     
     filterChanged = ( taxonomy, changedId, checked ) => {
-        this.props.onFilterChange( taxonomy, changedId, checked, this.state.andRelation )
+        this.props.onFilterChange( taxonomy, changedId, checked, this.state.andRelation[ taxonomy ] )
     }
 
     render() {
+        const activeArtists = this.props.filter.artists ? this.props.filter.artists.ids : [];
+        const activeTags = this.props.filter.tags ? this.props.filter.tags.ids : [];
         return (
             <ScrollPanel>
                 <div className="filters">
                     <big>Artists</big>
-                </div>
-                <div className="filters">
-                    <big>Genres</big>
-                    <label><input type="checkbox" checked={ this.state.andRelation.genres } onChange={ () => this.relationChanged( 'genres' ) } /> AND</label>
+                    <label><input type="checkbox" checked={ this.state.andRelation.artists } onChange={ () => this.relationChanged( 'artists' ) } /> ALL / ANY</label>
+                    <Autocomplete taxonomy="artists"
+                        available={ this.state.filters.artist }
+                        active={ activeArtists }
+                        onFilterChange={ this.filterChanged }
+                    />
                     {
-                        this.state.filters.genre.map( ( filter, index ) => <Item key={ index }
-                                                                                 id={ filter.id }
-                                                                                 name={ filter.name }
-                                                                                 count={ filter.count }
-                                                                                 active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( filter.id ) !== -1 )}
-                                                                                 onToggle={ this.filterChanged } /> )
+                        this.state.filters.artist
+                            .filter( artist => activeArtists.includes( artist.id ) )
+                            .map( artist => <Item taxonomy="artists"
+                                                  key={ `artist-${ artist.id }` }
+                                                  id={ artist.id }
+                                                  name={ artist.name }
+                                                  count={ artist.count }
+                                                  active={ true }
+                                                  onToggle={ this.filterChanged } /> )
                     }
                 </div>
                 <div className="filters">
                     <big>Tags</big>
+                    <label><input type="checkbox" checked={ this.state.andRelation.tags } onChange={ () => this.relationChanged( 'tags' ) } /> ALL / ANY</label>
+                    <Autocomplete taxonomy="tags"
+                        available={ this.state.filters.tags }
+                        active={ this.props.filter.tags ? this.props.filter.tags.ids : [] }
+                        onFilterChange={ this.filterChanged }
+                    />
+                    {
+                        this.state.filters.tags
+                            .filter( tag => activeTags.includes( tag.id ) )
+                            .map( tag => <Item taxonomy="tags"
+                                               key={ `tag-${ tag.id }` }
+                                               id={ tag.id }
+                                               name={ tag.name }
+                                               count={ tag.count }
+                                               active={ true }
+                                               onToggle={ this.filterChanged } /> )
+                    }
+                </div>
+                <div className="filters">
+                    <big>Genres</big>
+                    <label><input type="checkbox" checked={ this.state.andRelation.genres } onChange={ () => this.relationChanged( 'genres' ) } /> ALL / ANY</label>
+                    {
+                        this.state.filters.genre
+                            .slice( 0, 10 )
+                            .map( genre => <Item taxonomy="genres"
+                                                 key={ `genre-${ genre.id }` }
+                                                 id={ genre.id }
+                                                 name={ genre.name }
+                                                 count={ genre.count }
+                                                 active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( genre.id ) !== -1 )}
+                                                 onToggle={ this.filterChanged } /> )
+                    }
+                    <div className={ this.state.genresHidden ? 'hidden' : '' }>
+                        {
+                            this.state.filters.genre
+                                .slice( 10 )
+                                .map( genre => <Item taxonomy="genres"
+                                                     key={ `genre-${ genre.id }` }
+                                                     id={ genre.id }
+                                                     name={ genre.name }
+                                                     count={ genre.count }
+                                                     active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( genre.id ) !== -1 )}
+                                                     onToggle={ this.filterChanged } /> )
+                        }
+                    </div>
+                    <button onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Toggle list</button>
                 </div>
             </ScrollPanel>
         );
