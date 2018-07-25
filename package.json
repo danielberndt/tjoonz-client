@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "custom-react-scripts": "^0.2.2",
+    "query-string": "^6.1.0",
     "react": "^16.4.1",
     "react-custom-scroll": "^3.2.2",
     "react-dom": "^16.4.1",

@@ -1,0 +1,20 @@
+.filter-item {
+    line-height: 1.5em;
+}
+
+.filter-item:hover {
+    background-color: #13161a;
+}
+
+.filter-item.active {
+    background-color: #1b2c42;
+}
+
+.filter-item label {
+    display: block;
+    cursor: pointer;
+}
+
+.filter-item-count {
+    float: right;
+}
