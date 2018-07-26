@@ -28,13 +28,14 @@ export default class extends Component {
                 renderMenu={ function( items, value, style ) {
                     return value.length ? <div style={{ ...style, ...this.menuStyle }} children={ items }/> : <div />;
                 }}
+                renderInput={ props => <input {...props} placeholder={ this.props.loading ? 'Loading...' : `Search ${ this.props.taxonomy }` } /> }
                 renderItem={ ( item, highlighted ) => (
                     <div
                         className="filter-item"
                         key={ item.id }
                         style={{
                             paddingLeft: '5px',
-                            backgroundColor : highlighted ? '#1b2c42' : 'transparent'
+                            backgroundColor : highlighted ? '#1b2c42' : 'transparent' //#1b2c42
                         }}
                     >
                         <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : item.count }}></span>

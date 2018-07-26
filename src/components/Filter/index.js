@@ -75,6 +75,22 @@ export default class extends Component {
         this.props.onFilterChange( taxonomy, changedId, checked, this.state.andRelation[ taxonomy ] )
     }
 
+    renderActiveFilters = ( taxonomy, activeIds ) => {
+        if( !this.state.loading ) {
+            return this.state.filters[ taxonomy ]
+                .filter( item => activeIds.includes( item.id ) )
+                .map( item => <Item taxonomy={ taxonomy }
+                    key={ `${ taxonomy }-${ item.id }` }
+                    id={ item.id }
+                    name={ item.name }
+                    count={ item.count }
+                    active={ true }
+                    onToggle={ this.filterChanged } /> )
+        } else {
+            return activeIds.map( item => <div key={ `${ taxonomy }-${ item }` } className="filter-item loading">&hellip;</div> );
+        }
+    }
+
     render() {
         const activeArtists = this.props.filter.artists ? this.props.filter.artists.ids : [];
         const activeTags = this.props.filter.tags ? this.props.filter.tags.ids : [];
@@ -83,48 +99,36 @@ export default class extends Component {
                 <div className="filters">
                     <big>Artists</big>
                     <label><input type="checkbox" checked={ this.state.andRelation.artists } onChange={ () => this.relationChanged( 'artists' ) } /> ALL / ANY</label>
-                    <Autocomplete taxonomy="artists"
+                    <Autocomplete
+                        loading={ this.state.loading }
+                        taxonomy="artists"
                         available={ this.state.filters.artist }
                         active={ activeArtists }
                         onFilterChange={ this.filterChanged }
                     />
                     {
-                        this.state.filters.artist
-                            .filter( artist => activeArtists.includes( artist.id ) )
-                            .map( artist => <Item taxonomy="artists"
-                                                  key={ `artist-${ artist.id }` }
-                                                  id={ artist.id }
-                                                  name={ artist.name }
-                                                  count={ artist.count }
-                                                  active={ true }
-                                                  onToggle={ this.filterChanged } /> )
+                        this.renderActiveFilters( 'artist', activeArtists )
                     }
                 </div>
                 <div className="filters">
                     <big>Tags</big>
                     <label><input type="checkbox" checked={ this.state.andRelation.tags } onChange={ () => this.relationChanged( 'tags' ) } /> ALL / ANY</label>
-                    <Autocomplete taxonomy="tags"
+                    <Autocomplete
+                        loading={ this.state.loading }
+                        taxonomy="tags"
                         available={ this.state.filters.tags }
                         active={ this.props.filter.tags ? this.props.filter.tags.ids : [] }
                         onFilterChange={ this.filterChanged }
                     />
                     {
-                        this.state.filters.tags
-                            .filter( tag => activeTags.includes( tag.id ) )
-                            .map( tag => <Item taxonomy="tags"
-                                               key={ `tag-${ tag.id }` }
-                                               id={ tag.id }
-                                               name={ tag.name }
-                                               count={ tag.count }
-                                               active={ true }
-                                               onToggle={ this.filterChanged } /> )
+                        this.renderActiveFilters( 'tags', activeTags )
                     }
                 </div>
                 <div className="filters">
                     <big>Genres</big>
                     <label><input type="checkbox" checked={ this.state.andRelation.genres } onChange={ () => this.relationChanged( 'genres' ) } /> ALL / ANY</label>
                     {
-                        this.state.filters.genre
+                        this.state.loading ? null : this.state.filters.genre
                             .slice( 0, 10 )
                             .map( genre => <Item taxonomy="genres"
                                                  key={ `genre-${ genre.id }` }
@@ -136,7 +140,7 @@ export default class extends Component {
                     }
                     <div className={ this.state.genresHidden ? 'hidden' : '' }>
                         {
-                            this.state.filters.genre
+                            this.state.loading ? null : this.state.filters.genre
                                 .slice( 10 )
                                 .map( genre => <Item taxonomy="genres"
                                                      key={ `genre-${ genre.id }` }
@@ -147,7 +151,9 @@ export default class extends Component {
                                                      onToggle={ this.filterChanged } /> )
                         }
                     </div>
-                    <button className="expand" onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Show { this.state.genresHidden ? 'all' : 'less' } genres</button>
+                    {
+                        this.state.loading ? null : <button className="expand" onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Show { this.state.genresHidden ? 'all' : 'less' } genres</button>
+                    }
                 </div>
             </ScrollPanel>
         );
