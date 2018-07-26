@@ -57,7 +57,12 @@ export default class extends Component {
             <div className="layout layout-triple">
                 <div className="wrap">
                     <div className="panel">
-                        <Filter filter={ this.state.filter } onFilterChange={ this.filterChanged } onRelationChange={ this.relationChanged } { ...this.props } />
+                        <Filter
+                            filter={ this.state.filter }
+                            onFilterChange={ this.filterChanged }
+                            onRelationChange={ this.relationChanged }
+                            { ...this.props }
+                        />
                     </div>
                     <div className="panel">
                     

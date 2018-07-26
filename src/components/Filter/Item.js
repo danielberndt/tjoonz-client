@@ -20,7 +20,7 @@ export default class extends Component {
                 <label>
                     <input type="checkbox" checked={ this.state.checked } onChange={ this.toggle } />
                     <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : this.props.active ? `&times;` : this.props.count }}></span>
-                    <span className="filter-item-name">{ this.props.name }</span>
+                    <span className="filter-item-name" dangerouslySetInnerHTML={{ __html : this.props.name }}></span>
                 </label>
             </div>
         );

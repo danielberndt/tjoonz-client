@@ -1,8 +1,18 @@
+.filters > div {
+    width: 100%;
+}
+
 .filters .hidden {
     display: none;
 }
 
+.filters .expand {
+    width: 100%;
+}
+
 .filter-item {
+    margin: 3px 0;
+    padding-right: 5px;
     line-height: 1.5em;
 }
 

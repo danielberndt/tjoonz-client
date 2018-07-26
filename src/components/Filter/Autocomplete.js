@@ -8,18 +8,38 @@ export default class extends Component {
             value : ''
         };
     }
+
     render() {
         return (
             <ReactAutocomplete
                 items={ this.props.available.filter( item => !this.props.active.includes( item.id ) ) }
-                shouldItemRender={ ( item, value ) => item.name.toLowerCase().indexOf( value.toLowerCase() ) > -1 }
+                shouldItemRender={ ( item, value ) => value.length > 0 && item.name.toLowerCase().indexOf( value.toLowerCase() ) > -1 }
                 getItemValue={ item => item.name }
+                menuStyle={{
+                    borderRadius: '3px',
+                    boxShadow: '0 2px 12px rgba(0, 0, 0, .8)',
+                    background: '#0e1013',
+                    position: 'fixed',
+                    overflowY: 'auto',
+                    maxHeight: '110px',
+                    width: '205px',
+                    cursor: 'pointer'
+                }}
+                renderMenu={ function( items, value, style ) {
+                    return value.length ? <div style={{ ...style, ...this.menuStyle }} children={ items }/> : <div />;
+                }}
                 renderItem={ ( item, highlighted ) => (
                     <div
+                        className="filter-item"
                         key={ item.id }
-                        style={{ backgroundColor : highlighted ? '#eee' : 'transparent' }}
-                        dangerouslySetInnerHTML={{ __html : item.name }}
-                    ></div>
+                        style={{
+                            paddingLeft: '5px',
+                            backgroundColor : highlighted ? '#1b2c42' : 'transparent'
+                        }}
+                    >
+                        <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : item.count }}></span>
+                        <span className="filter-item-name" dangerouslySetInnerHTML={{ __html : item.name }}></span>
+                    </div>
                 )}
                 value={ this.state.value }
                 onChange={ event => {

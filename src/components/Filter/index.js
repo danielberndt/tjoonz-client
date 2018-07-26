@@ -147,7 +147,7 @@ export default class extends Component {
                                                      onToggle={ this.filterChanged } /> )
                         }
                     </div>
-                    <button onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Toggle list</button>
+                    <button className="expand" onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Show { this.state.genresHidden ? 'all' : 'less' } genres</button>
                 </div>
             </ScrollPanel>
         );
