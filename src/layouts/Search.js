@@ -6,9 +6,12 @@ import Filter from '../components/Filter';
 export default class extends Component {
     constructor( props ) {
         super( props );
-        this.state = {
-            filter : this._parseFilter()
-        };
+        const filter = this._parseFilter();
+        this.state = { filter };
+        const cleanRoute = this._filterRoute( filter );
+        if( `${ this.props.location.pathname }${ this.props.location.search }` !== cleanRoute ) {
+            this.props.history.replace( cleanRoute );
+        }
     }
 
     _parseFilter = () => {
@@ -31,7 +34,7 @@ export default class extends Component {
                 ids : [ changedId ]
             };
         }
-        this.props.history.push( this._filterRoute( filter ));
+        this.props.history.replace( this._filterRoute( filter ));
         this.setState({ filter });
     }
 
@@ -39,7 +42,7 @@ export default class extends Component {
         const filter = this._parseFilter();
         if( filter[ key ] ) {
             filter[ key ].and = and;    
-            this.props.history.push( this._filterRoute( filter ));
+            this.props.history.replace( this._filterRoute( filter ));
             this.setState({ filter });
         }
     }
