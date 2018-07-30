@@ -1,6 +1,6 @@
 
 
-export const getFeaturedImage = wpFeaturedMedia => wpFeaturedMedia.length ? wpFeaturedMedia[ 0 ] : null;
+export const getFeaturedImage = wpFeaturedMedia => wpFeaturedMedia && wpFeaturedMedia.length ? wpFeaturedMedia[ 0 ] : null;
 
 export const filterTerms = ( taxonomy, wpTerm ) => {
     const matchedTermGroup = wpTerm.filter( termGroup => termGroup.length ? termGroup[0].taxonomy === taxonomy : false );
