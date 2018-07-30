@@ -10,15 +10,29 @@
     width: 100%;
 }
 
-.filter-item {
+.filter-item,
+.filter-autocomplete-input {
     margin: 3px 0;
     padding-right: 5px;
     line-height: 1.5em;
 }
 .filter-item.loading,
-.filter-item.loading:hover {
+.filter-item.loading:hover,
+.filter-autocomplete-input {
     padding-left: 5px;
-    background: #20262c;
+    background-color: #20262c;
+}
+.filter-autocomplete-input {
+    width: 100%;
+    border: 0;
+    color: #cad1d9;
+    border-bottom: 1px solid transparent;
+}
+.filter-autocomplete-input:focus {
+    /*outline: 1px solid #cad1d9;
+    outline-offset: -1px;*/
+    outline: none;
+    border-bottom: 1px solid #cad1d9;
 }
 
 .filter-item:hover {

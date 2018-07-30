@@ -20,8 +20,8 @@ export default class extends Component {
                 tags    : this.props.filter.tags ? this.props.filter.tags.and : false
             },
             filters : {
-                genre      : [], // `genre` is singular because of WordPress taxonomy registration
-                artist     : [], // `artist` is singular because of WordPress taxonomy registration
+                genres     : [],
+                artists    : [],
                 tags       : [],
                 dateRanges : [],
                 orderBy    : {
@@ -40,60 +40,61 @@ export default class extends Component {
     }
 
     componentDidMount() {
-        const genres = this.loadAvailableFilters( 'genre', 10 );
-        const artists = this.loadAvailableFilters( 'artist', 10 );
-        const tags = this.loadAvailableFilters( 'tags', 10 );
-        Promise.all([ genres, artists, tags ])
+        const g = this.loadAvailableFilters( 'genres', 'genre', 10 );
+        const a = this.loadAvailableFilters( 'artists', 'artist', 10 );
+        const t = this.loadAvailableFilters( 'tags', 'tags', 10 );
+        Promise.all([ g, a, t ])
             .then( () => this.setState({ loading : false }));
     }
 
-    loadAvailableFilters = ( filter, top = 10 ) => {
-        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ filter }?per_page=${ top }&page=1&orderby=count&order=desc` )
+    loadAvailableFilters = ( key, taxonomy, top = 10 ) => {
+        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ taxonomy }?per_page=${ top }&page=1&orderby=count&order=desc` )
             .then( response => response.json() )
-            .then( exclude => this._fetchPage( filter, 1, exclude.map( term => term.id ) ).then( list => {
+            .then( exclude => this._fetchPage( taxonomy, 1, exclude.map( term => term.id ) ).then( list => {
                 this.setState({
-                    filters : Object.assign( {}, this.state.filters, {[ filter ] : [ ...exclude, ...list ] })
+                    filters : Object.assign( {}, this.state.filters, {[ key ] : [ ...exclude, ...list ] })
                 })
             }))
         ;
     }
 
-    _fetchPage = ( filter, page, exclude = [] ) => {
-        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ filter }?per_page=100&page=${ page++ }&orderby=name&order=asc${ exclude.length > 0 ? `&exclude=${ exclude.join( ',' ) }` : '' }` )
+    _fetchPage = ( taxonomy, page, exclude = [] ) => {
+        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ taxonomy }?per_page=100&page=${ page++ }&orderby=name&order=asc${ exclude.length > 0 ? `&exclude=${ exclude.join( ',' ) }` : '' }` )
             .then( response => response.json() )
-            .then( currentPage => currentPage.length === 0 ? currentPage : this._fetchPage( filter, page, exclude ).then( nextPage => [ ...currentPage, ...nextPage ] ));
+            .then( currentPage => currentPage.length === 0 ? currentPage : this._fetchPage( taxonomy, page, exclude ).then( nextPage => [ ...currentPage, ...nextPage ] ));
     }
 
-    relationChanged = taxonomy => {
-        const relation = !this.state.andRelation[ taxonomy ];
+    relationChanged = key => {
+        const relation = !this.state.andRelation[ key ];
         this.setState({
-            andRelation : Object.assign( {}, this.state.andRelation, {[ taxonomy ] : relation })
-        }, () => this.props.onRelationChange( taxonomy, relation ) );
+            andRelation : Object.assign( {}, this.state.andRelation, {[ key ] : relation })
+        }, () => this.props.onRelationChange( key, relation ) );
     }
     
-    filterChanged = ( taxonomy, changedId, checked ) => {
-        this.props.onFilterChange( taxonomy, changedId, checked, this.state.andRelation[ taxonomy ] )
+    filterChanged = ( key, changedId, checked ) => {
+        this.props.onFilterChange( key, changedId, checked, this.state.andRelation[ key ] )
     }
 
-    renderActiveFilters = ( taxonomy, activeIds ) => {
+    renderActiveFilters = ( key, activeIds ) => {
         if( !this.state.loading ) {
-            return this.state.filters[ taxonomy ]
+            return this.state.filters[ key ]
                 .filter( item => activeIds.includes( item.id ) )
-                .map( item => <Item taxonomy={ taxonomy }
-                    key={ `${ taxonomy }-${ item.id }` }
+                .map( item => <Item
+                    key={ `${ key }-${ item.id }` }
+                    filterKey={ key }
                     id={ item.id }
                     name={ item.name }
                     count={ item.count }
                     active={ true }
                     onToggle={ this.filterChanged } /> )
         } else {
-            return activeIds.map( item => <div key={ `${ taxonomy }-${ item }` } className="filter-item loading">&hellip;</div> );
+            return activeIds.map( item => <div key={ `${ key }-${ item }` } className="filter-item loading">&hellip;</div> );
         }
     }
 
     render() {
         const activeArtists = this.props.filter.artists ? this.props.filter.artists.ids : [];
-        const activeTags = this.props.filter.tags ? this.props.filter.tags.ids : [];
+        const activeTags    = this.props.filter.tags    ? this.props.filter.tags.ids    : [];
         return (
             <ScrollPanel>
                 <div className="filters">
@@ -101,13 +102,13 @@ export default class extends Component {
                     <label><input type="checkbox" checked={ this.state.andRelation.artists } onChange={ () => this.relationChanged( 'artists' ) } /> ALL / ANY</label>
                     <Autocomplete
                         loading={ this.state.loading }
-                        taxonomy="artists"
-                        available={ this.state.filters.artist }
+                        filterKey="artists"
+                        available={ this.state.filters.artists }
                         active={ activeArtists }
                         onFilterChange={ this.filterChanged }
                     />
                     {
-                        this.renderActiveFilters( 'artist', activeArtists )
+                        this.renderActiveFilters( 'artists', activeArtists )
                     }
                 </div>
                 <div className="filters">
@@ -115,9 +116,9 @@ export default class extends Component {
                     <label><input type="checkbox" checked={ this.state.andRelation.tags } onChange={ () => this.relationChanged( 'tags' ) } /> ALL / ANY</label>
                     <Autocomplete
                         loading={ this.state.loading }
-                        taxonomy="tags"
+                        filterKey="tags"
                         available={ this.state.filters.tags }
-                        active={ this.props.filter.tags ? this.props.filter.tags.ids : [] }
+                        active={ activeTags }
                         onFilterChange={ this.filterChanged }
                     />
                     {
@@ -128,27 +129,33 @@ export default class extends Component {
                     <big>Genres</big>
                     <label><input type="checkbox" checked={ this.state.andRelation.genres } onChange={ () => this.relationChanged( 'genres' ) } /> ALL / ANY</label>
                     {
-                        this.state.loading ? null : this.state.filters.genre
+                        this.state.loading ? null : this.state.filters.genres
                             .slice( 0, 10 )
-                            .map( genre => <Item taxonomy="genres"
-                                                 key={ `genre-${ genre.id }` }
-                                                 id={ genre.id }
-                                                 name={ genre.name }
-                                                 count={ genre.count }
-                                                 active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( genre.id ) !== -1 )}
-                                                 onToggle={ this.filterChanged } /> )
+                            .map( genre => (
+                                <Item
+                                    key={ `genres-${ genre.id }` }
+                                    filterKey="genres"
+                                    id={ genre.id }
+                                    name={ genre.name }
+                                    count={ genre.count }
+                                    active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( genre.id ) !== -1 )}
+                                    onToggle={ this.filterChanged }
+                                /> ))
                     }
                     <div className={ this.state.genresHidden ? 'hidden' : '' }>
                         {
-                            this.state.loading ? null : this.state.filters.genre
+                            this.state.loading ? null : this.state.filters.genres
                                 .slice( 10 )
-                                .map( genre => <Item taxonomy="genres"
-                                                     key={ `genre-${ genre.id }` }
-                                                     id={ genre.id }
-                                                     name={ genre.name }
-                                                     count={ genre.count }
-                                                     active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( genre.id ) !== -1 )}
-                                                     onToggle={ this.filterChanged } /> )
+                                .map( genre => (
+                                    <Item
+                                        key={ `genres-${ genre.id }` }
+                                        filterKey="genres"
+                                        id={ genre.id }
+                                        name={ genre.name }
+                                        count={ genre.count }
+                                        active={ Boolean( this.props.filter.genres ) && Boolean( this.props.filter.genres.ids.indexOf( genre.id ) !== -1 )}
+                                        onToggle={ this.filterChanged }
+                                    /> ))
                         }
                     </div>
                     {

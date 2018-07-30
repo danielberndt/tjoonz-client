@@ -11,7 +11,16 @@ const Root = () => (
             <Switch>
                 <Route exact path="/" component={ layouts.Home } />
                 <Route path="/mix/:slug" component={ layouts.Mix } />
-                <Route path="/search" component={ layouts.Search } />
+                <Route path="/search" render={ props => (
+                    <layouts.Search
+                        { ...props }
+                        recognisedKeys={[
+                            'artists',
+                            'genres',
+                            'tags'
+                        ]}
+                    />
+                )} />
                 <Route path="/chart" component={ layouts.Double } />
                 <Route path="/my" component={ layouts.Double } />
                 <Route path="/about" component={ layouts.Single } />

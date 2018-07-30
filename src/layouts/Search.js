@@ -14,19 +14,19 @@ export default class extends Component {
     _parseFilter = () => {
         const filter = queryString.parse( this.props.location.search );
         Object.keys( filter ).forEach( key => {
-            filter[ key ] = parseFilterSegment( filter[ key ] );
+            filter[ key ] = this.props.recognisedKeys.indexOf( key ) === -1 ? null : parseFilterSegment( filter[ key ] );
         });
         return filter;
     }
 
-    filterChanged = ( taxonomy, changedId, checked, relation ) => {
+    filterChanged = ( key, changedId, checked, relation ) => {
         const filter = this._parseFilter();
-        if( filter[ taxonomy ] ) {
-            filter[ taxonomy ].and = relation;
-            const ids = filter[ taxonomy ].ids;
-            filter[ taxonomy ].ids = checked ? ids.concat( changedId ) : ids.filter( id => id !== changedId );    
+        if( filter[ key ] ) {
+            filter[ key ].and = relation;
+            const ids = filter[ key ].ids;
+            filter[ key ].ids = checked ? ids.concat( changedId ) : ids.filter( id => id !== changedId );    
         } else {
-            filter[ taxonomy ] = {
+            filter[ key ] = {
                 and : relation,
                 ids : [ changedId ]
             };
@@ -35,17 +35,17 @@ export default class extends Component {
         this.setState({ filter });
     }
 
-    relationChanged = ( taxonomy, and ) => {
+    relationChanged = ( key, and ) => {
         const filter = this._parseFilter();
-        if( filter[ taxonomy ] ) {
-            filter[ taxonomy ].and = and;    
+        if( filter[ key ] ) {
+            filter[ key ].and = and;    
             this.props.history.push( this._filterRoute( filter ));
             this.setState({ filter });
         }
     }
 
     _filterRoute = filter => {
-        const filters = Object.keys( filter ).filter( key => filter[ key ].ids.length ).map( key => {
+        const filters = Object.keys( filter ).filter( key => filter[ key ] && filter[ key ].ids.length ).map( key => {
             const separator = filter[ key ].and ? ',' : '|';
             return `${ key }=${ filter[ key ].ids.join( separator ) }`;
         });

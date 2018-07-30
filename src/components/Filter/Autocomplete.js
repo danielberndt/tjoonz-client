@@ -28,7 +28,7 @@ export default class extends Component {
                 renderMenu={ function( items, value, style ) {
                     return value.length ? <div style={{ ...style, ...this.menuStyle }} children={ items }/> : <div />;
                 }}
-                renderInput={ props => <input {...props} placeholder={ this.props.loading ? 'Loading...' : `Search ${ this.props.taxonomy }` } /> }
+                renderInput={ props => <input className="filter-autocomplete-input" {...props} placeholder={ this.props.loading ? 'Loading...' : `Search ${ this.props.filterKey }` } /> }
                 renderItem={ ( item, highlighted ) => (
                     <div
                         className="filter-item"
@@ -50,7 +50,7 @@ export default class extends Component {
                 onSelect={ ( value, item ) => {
                     value = '';
                     this.setState({ value }, () => {
-                        this.props.onFilterChange( this.props.taxonomy, item.id, true );
+                        this.props.onFilterChange( this.props.filterKey, item.id, true );
                     });
                 }}
             />
