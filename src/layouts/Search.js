@@ -10,8 +10,9 @@ export default class extends Component {
         const filter = this._parseFilter();
         this.state = {
             filter,
-            results : [],
-            loading : true
+            results   : [],
+            loading   : true,
+            exhausted : false
         };
         const cleanRoute = this._filterRoute( filter );
         if( `${ this.props.location.pathname }${ this.props.location.search }` !== cleanRoute ) {
@@ -84,19 +85,27 @@ export default class extends Component {
                 url = `http://beta.tjoonz.com/wp-json/wp/v2/posts?_embed&per_page=10&page=${ page }`;
             }
             fetch( url ).then( response => response.json() ).then( results => {
-                if( page === 1 ) {
-                    window.scrollTo( 0, 0 );
+                if( results.code === 'rest_post_invalid_page_number' ) {
                     this.setState({
-                        results,
-                        loading : false
+                        loading   : false,
+                        exhausted : true
                     });
                 } else {
-                    this.setState( prevState => {
-                        return Object.assign( {}, prevState, {
-                            results : [ ...prevState.results, ...results ],
-                            loading : false
+                    if( page === 1 ) {
+                        window.scrollTo( 0, 0 );
+                        this.setState({
+                            results,
+                            loading   : false,
+                            exhausted : false
                         });
-                    });
+                    } else {
+                        this.setState( prevState => {
+                            return Object.assign( {}, prevState, {
+                                results : [ ...prevState.results, ...results ],
+                                loading : false
+                            });
+                        });
+                    }
                 }
             });
         });
@@ -115,7 +124,7 @@ export default class extends Component {
                         />
                     </div>
                     <div className="panel">
-                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getMixes } isLoading={ this.state.loading } /> : null }
+                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getMixes } isLoading={ this.state.loading } isExhausted={ this.state.exhausted } /> : null }
                     </div>
                     <div className="panel">
                         
