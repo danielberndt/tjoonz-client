@@ -43,8 +43,7 @@ export default class extends Component {
         const g = this.loadAvailableFilters( 'genres', 'genre', 10 );
         const a = this.loadAvailableFilters( 'artists', 'artist', 10 );
         const t = this.loadAvailableFilters( 'tags', 'tags', 10 );
-        Promise.all([ g, a, t ])
-            .then( () => this.setState({ loading : false }));
+        Promise.all([ g, a, t ]).then( () => this.setState({ loading : false }));
     }
 
     loadAvailableFilters = ( key, taxonomy, top = 10 ) => {
