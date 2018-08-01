@@ -18,6 +18,13 @@ export const getArtworkSrc = ( featuredImage, size = 'full' ) => {
     }
 }
 
+export const getPublishDate = dateGmt => {
+    const now = new Date();
+    const date = new Date( `${ dateGmt }Z` );
+    const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    return `${ date.getDate() } ${ months[ date.getMonth() ] }${ date.getFullYear() < now.getFullYear() ? ` ${ date.getFullYear() }` : '' }`;
+}
+
 export const filterTerms = ( taxonomy, wpTerm ) => {
     const matchedTermGroup = wpTerm.filter( termGroup => termGroup.length ? termGroup[0].taxonomy === taxonomy : false );
     return matchedTermGroup.length ? matchedTermGroup[ 0 ] : [];

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getFeaturedImage, getArtworkSrc, filterTerms, printTermNames, spanLabelsFor } from '../helpers/metadata';
+import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../helpers/metadata';
 import ScrollPanel from './ScrollPanel';
 
 export default class extends Component {
@@ -8,6 +8,7 @@ export default class extends Component {
             return null;
         }
         const featuredImage = getFeaturedImage( this.props._embedded['wp:featuredmedia'] );
+        const publishDate = getPublishDate( this.props.date_gmt );
         const artworkSrc = getArtworkSrc( featuredImage, 'medium' );
         const artists = printTermNames( 'artist', this.props._embedded['wp:term'] );
         const genres = filterTerms( 'genre', this.props._embedded['wp:term'] );
@@ -20,7 +21,7 @@ export default class extends Component {
                         <img width="265" height="265" alt="" src={ this.props.isLoading ? '' : artworkSrc } />
                     </div>
                     <div className="meta">
-                        <div className="published"><span>30 Aug 2028</span></div>
+                        <div className="published"><span>{ publishDate }</span></div>
                         <div className="title"><span dangerouslySetInnerHTML={{ __html: this.props.title.rendered }}></span></div>
                         <div className="artists"><span dangerouslySetInnerHTML={{ __html: artists }}></span></div>
                     </div>
