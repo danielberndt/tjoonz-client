@@ -9,7 +9,7 @@ export default class extends Component {
             <div id="navigation">
                 <div className="wrap">
                     <div className="left">
-                        <NavLink className="logo" to="/">Tjoonz.com</NavLink>
+                        <NavLink className="logo" exact to="/">Tjoonz.com</NavLink>
                         <NavLink to="/chart">Charts</NavLink>
                         <NavLink to="/search">Search Music</NavLink>
                     </div>
