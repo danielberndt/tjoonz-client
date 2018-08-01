@@ -11,6 +11,7 @@ export default class extends Component {
             query,
             page      : 1,
             results   : [],
+            details   : 0,
             loading   : true,
             exhausted : false
         };
@@ -108,6 +109,10 @@ export default class extends Component {
         }), this.getMixes );
     }
 
+    getDetails = id => {
+        this.setState({ details : id });
+    }
+
     render() {
         return (
             <div className="layout layout-triple">
@@ -121,10 +126,10 @@ export default class extends Component {
                         />
                     </div>
                     <div className="panel">
-                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loading } isExhausted={ this.state.exhausted } page={ this.state.page } /> : null }
+                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loading } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } /> : null }
                     </div>
                     <div className="panel">
-                        
+                        <big>{ this.state.details }</big>
                     </div>
                 </div>
             </div>

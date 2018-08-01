@@ -10,7 +10,7 @@ export default class extends Component {
         const artworkSrc = featuredImage ? featuredImage.media_details.sizes.thumbnail.source_url : 'http://placehold.it/54x54';
 
         return (
-            <div className="mix-list-item">
+            <div className="mix-list-item" onClick={ () => this.props.onClick( this.props.id ) }>
                 <div className="artwork">
                     <img width="54" height="54" alt="" src={ artworkSrc } />
                     <button>Play</button>
