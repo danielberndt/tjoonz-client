@@ -25,3 +25,27 @@ export const createRoute = query => {
     });
     return `/search${ segments.length ? '?' : '' }${ segments.join( '&' ) }`;
 };
+
+export const fetchPage = ( endpoint, page, perPage = 10, recursive = false, exclude = [], orderBy = 'name', descending = false  ) => {
+    const segments = [];
+    segments.push( endpoint );    
+    segments.push( `?per_page=${ perPage }` );
+    segments.push( `&page=${ page++ }` );
+    segments.push( `&orderby=${ orderBy }` );
+    segments.push( `&order=${ descending ? 'desc' : 'asc' }` );
+    if( exclude.length ) {
+        segments.push( `&exclude=${ exclude.join( ',' ) }` );
+    }
+    return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ segments.join( '' ) }` )
+        .then( response => response.json() )
+        .then( currentPage => {
+            if( !currentPage.length ) {
+                return currentPage;
+            } else if ( !recursive ) {
+                return currentPage;
+            } else {
+                return fetchPage( endpoint, page, perPage, recursive, exclude, orderBy, descending )
+                    .then( nextPage => [ ...currentPage, ...nextPage ] );
+            }
+        });
+}

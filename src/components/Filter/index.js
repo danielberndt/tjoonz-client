@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { fetchPage } from '../../helpers/filter';
 import Autocomplete from './Autocomplete';
 import Item from './Item';
 import ScrollPanel from '../ScrollPanel';
@@ -46,21 +47,15 @@ export default class extends Component {
         Promise.all([ g, a, t ]).then( () => this.setState({ loading : false }));
     }
 
-    loadAvailableFilters = ( key, taxonomy, top = 10 ) => {
-        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ taxonomy }?per_page=${ top }&page=1&orderby=count&order=desc` )
+    loadAvailableFilters = ( key, endpoint, top = 10 ) => {
+        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ endpoint }?per_page=${ top }&page=1&orderby=count&order=desc` )
             .then( response => response.json() )
-            .then( exclude => this._fetchPage( taxonomy, 1, exclude.map( term => term.id ) ).then( list => {
+            .then( exclude => fetchPage( endpoint, 1, 100, true, exclude.map( term => term.id ) ).then( list => {
                 this.setState({
                     filters : Object.assign( {}, this.state.filters, {[ key ] : [ ...exclude, ...list ] })
                 })
             }))
         ;
-    }
-
-    _fetchPage = ( taxonomy, page, exclude = [] ) => {
-        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ taxonomy }?per_page=100&page=${ page++ }&orderby=name&order=asc${ exclude.length > 0 ? `&exclude=${ exclude.join( ',' ) }` : '' }` )
-            .then( response => response.json() )
-            .then( currentPage => currentPage.length === 0 ? currentPage : this._fetchPage( taxonomy, page, exclude ).then( nextPage => [ ...currentPage, ...nextPage ] ));
     }
 
     relationChanged = key => {

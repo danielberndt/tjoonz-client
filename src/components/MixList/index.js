@@ -18,7 +18,18 @@ export default class extends Component {
         }
     }
 
+    footer = () => {
+        if( this.props.isLoading ) {
+            return <div>Loading mixes&hellip;</div>;
+        } else if( this.props.isExhausted ) {
+            return <div>No more mixes&hellip;</div>;
+        } else {
+            return null;
+        }
+    }
+
     render() {
+        const footer = this.footer();
         return (
             <div className="mix-list">
                 <Header />
@@ -29,9 +40,7 @@ export default class extends Component {
                         })
                     }
                 </div>
-                {
-                    this.props.isLoading ? <div>Loading mixes&hellip;</div> : null
-                }
+                { footer }
             </div>
         );
     }
