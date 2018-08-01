@@ -4,10 +4,10 @@ import { getFeaturedImage, filterTerms, printTermNames, spanLabelsFor } from '..
 export default class extends Component {
     render() {
         const featuredImage = getFeaturedImage( this.props._embedded['wp:featuredmedia'] );
+        const artworkSrc = featuredImage ? featuredImage.media_details.sizes.thumbnail.source_url : 'http://placehold.it/54x54?text=NO+ARTWORK';
         const artists = printTermNames( 'artist', this.props._embedded['wp:term'] );
         const genres = filterTerms( 'genre', this.props._embedded['wp:term'] );
         const tags = filterTerms( 'post_tag', this.props._embedded['wp:term'] );
-        const artworkSrc = featuredImage ? featuredImage.media_details.sizes.thumbnail.source_url : 'http://placehold.it/54x54';
 
         return (
             <div className="mix-list-item" onClick={ () => this.props.onClick( this.props.id ) }>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { parseRoute, createRoute } from '../helpers/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
+import Details from '../components/Details';
 
 export default class extends Component {
     constructor( props ) {
@@ -9,11 +10,12 @@ export default class extends Component {
         const query = parseRoute( this.props.location.search, this.props.recognisedKeys );
         this.state = {
             query,
-            page      : 1,
-            results   : [],
-            details   : 0,
-            loading   : true,
-            exhausted : false
+            page           : 1,
+            results        : [],
+            details        : 0,
+            loadingMixes   : true,
+            loadingDetails : false,
+            exhausted      : false
         };
         const cleanRoute = createRoute( query );
         if( `${ this.props.location.pathname }${ this.props.location.search }` !== cleanRoute ) {
@@ -59,7 +61,7 @@ export default class extends Component {
 
     getMixes = () => {
         this.setState({
-            loading : true
+            loadingMixes : true
         }, () => {
             const { query, page } = this.state;
             const segments = Object.keys( query ).filter( key => query[ key ] && query[ key ].ids.length ).map( key => {
@@ -79,22 +81,22 @@ export default class extends Component {
             fetch( url ).then( response => response.json() ).then( results => {
                 if( results.code === 'rest_post_invalid_page_number' ) {
                     this.setState({
-                        loading   : false,
-                        exhausted : true
+                        loadingMixes : false,
+                        exhausted    : true
                     });
                 } else {
                     if( page === 1 ) {
                         window.scrollTo( 0, 0 );
                         this.setState({
                             results,
-                            loading   : false,
-                            exhausted : false
+                            loadingMixes : false,
+                            exhausted    : false
                         });
                     } else {
                         this.setState( prevState => {
                             return Object.assign( {}, prevState, {
-                                results : [ ...prevState.results, ...results ],
-                                loading : false
+                                results      : [ ...prevState.results, ...results ],
+                                loadingMixes : false
                             });
                         });
                     }
@@ -110,7 +112,16 @@ export default class extends Component {
     }
 
     getDetails = id => {
-        this.setState({ details : id });
+        this.setState({
+            loadingDetails : true
+        }, () => {
+            fetch( `http://beta.tjoonz.com/wp-json/wp/v2/posts/${ id }?_embed` )
+                .then( response => response.json() )
+                .then( details => this.setState({
+                    details,
+                    loadingDetails : false
+                }));
+        });
     }
 
     render() {
@@ -126,10 +137,10 @@ export default class extends Component {
                         />
                     </div>
                     <div className="panel">
-                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loading } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } /> : null }
+                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } /> : null }
                     </div>
                     <div className="panel">
-                        <big>{ this.state.details }</big>
+                        <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
                     </div>
                 </div>
             </div>

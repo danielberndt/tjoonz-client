@@ -2,6 +2,22 @@ import React from 'react';
 
 export const getFeaturedImage = wpFeaturedMedia => wpFeaturedMedia && wpFeaturedMedia.length ? wpFeaturedMedia[ 0 ] : null;
 
+export const getArtworkSrc = ( featuredImage, size = 'full' ) => {
+    if( featuredImage && featuredImage.media_details.sizes[ size ] ) {
+        return featuredImage.media_details.sizes[ size ].source_url;
+    } else {
+        switch( size ) {
+            case 'thumbnail':
+                return 'http://placehold.it/54x54?text=NO+ARTWORK';
+            case 'medium':
+                return 'http://placehold.it/265x265?text=NO+ARTWORK';
+            case 'full':
+            default:
+                return 'http://placehold.it/960x960?text=NO+ARTWORK';
+        }
+    }
+}
+
 export const filterTerms = ( taxonomy, wpTerm ) => {
     const matchedTermGroup = wpTerm.filter( termGroup => termGroup.length ? termGroup[0].taxonomy === taxonomy : false );
     return matchedTermGroup.length ? matchedTermGroup[ 0 ] : [];
