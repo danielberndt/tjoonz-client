@@ -1,0 +1,81 @@
+.mix-list-header,
+.mix-list-item {
+    margin-bottom: 15px;
+}
+.mix-list-header,
+.mix-list-item .meta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+.mix-list-header > div,
+.mix-list-item .meta > div,
+.mix-list-item .tax > span:first-child {
+    margin-left: 15px;
+}
+.mix-list-header > div,
+.mix-list-item .meta > div {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.mix-list-header > div:first-child {
+    margin-left: 69px;
+}
+.mix-list-header .artwork {
+    flex-basis: 54px;
+}
+.mix-list-item .artwork {
+    position: relative;
+    float: left;
+    line-height: 0;
+}
+.mix-list-item .artwork button {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+}
+.mix-list-item:hover .artwork button {
+    display: block;
+}
+.mix-list-header .published,
+.mix-list-item .meta .published {
+    flex-basis: 90px;
+}
+.mix-list-header .title,
+.mix-list-item .meta .title {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+.mix-list-header .artists,
+.mix-list-item .meta .artists {
+    flex-basis: 120px;
+}
+
+.mix-list-item::after {
+    display: block;
+    content: '';
+    clear: left;
+}
+
+.mix-list-item .tax .label {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 0 5px;
+    background-color: #242a32;
+    transform: skewX( -15deg );
+    font-size: .9em;
+}
+.mix-list-item .tax .label > span {
+    display: inline-block;
+    transform: skewX( 15deg );
+}
+.mix-list-item .tax span:first-child .label:first-child {
+    margin-left: 0;
+}

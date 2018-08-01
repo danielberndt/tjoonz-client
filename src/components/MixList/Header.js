@@ -4,11 +4,9 @@ export default class extends Component {
     render() {
         return (
             <div className="mix-list-header">
-                <div><span className="mix-artwork"></span></div>
-                <div><span className="mix-title">Title</span></div>
-                <div><span className="mix-artists">Artist(s)</span></div>
-                <div><span className="mix-genres">Genre(s)</span></div>
-                <div><span className="mix-tags">Tag(s)</span></div>
+                <div className="published"><span>Published</span></div>
+                <div className="title"><span>Title</span></div>
+                <div className="artists"><span>Artist(s)</span></div>
             </div>
         );
     }

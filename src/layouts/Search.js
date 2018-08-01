@@ -121,7 +121,7 @@ export default class extends Component {
                         />
                     </div>
                     <div className="panel">
-                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loading } isExhausted={ this.state.exhausted } /> : null }
+                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loading } isExhausted={ this.state.exhausted } page={ this.state.page } /> : null }
                     </div>
                     <div className="panel">
                         

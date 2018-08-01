@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Item from './Item';
+import './style.css';
 
 export default class extends Component {
     componentDidMount() {
+        this.scrolled();
         window.addEventListener( 'scroll', this.scrolled, false );
+        window.addEventListener( 'resize', this.scrolled, false );
     }
 
     componentWillUnmount() {
         window.removeEventListener( 'scroll', this.scrolled, false );
+        window.removeEventListener( 'resize', this.scrolled, false );
+    }
+
+    componentDidUpdate( prevProps ) {
+        if( this.props.page === 1 && prevProps.isLoading === true && this.props.isLoading === false ) { //prevProps.mixes.length > this.props.mixes.length
+            console.log('scrolled');
+            this.scrolled();
+        }
+    }
+
+    shouldComponentUpdate = ( nextProps, nextState ) => {
+        return nextProps.isLoading === false;
     }
 
     scrolled = () => {

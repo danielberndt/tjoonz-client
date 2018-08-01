@@ -20,7 +20,7 @@
 .filter-item.loading:hover,
 .filter-autocomplete-input {
     padding-left: 5px;
-    background-color: #20262c;
+    background-color: #242a32;
 }
 .filter-autocomplete-input {
     width: 100%;
@@ -36,11 +36,11 @@
 }
 
 .filter-item:hover {
-    background-color: #20262c; /*#13161a;*/
+    background-color: #242a32; /*#13161a;*/
 }
 
 .filter-item.active {
-    background-color: #20262c; /*#1b2c42;*/
+    background-color: #242a32; /*#1b2c42;*/
 }
 
 .filter-item label {
