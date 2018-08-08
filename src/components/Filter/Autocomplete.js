@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import ReactAutocomplete from 'react-autocomplete';
+import {
+      filterItems
+    , shouldItemRender
+    , renderMenu
+    , renderInput
+    , renderItem
+} from '../../helpers/autocomplete';
 
 export default class extends Component {
     constructor( props ) {
@@ -7,41 +14,27 @@ export default class extends Component {
         this.state = {
             value : ''
         };
+        this.style = {
+            borderRadius: '3px',
+            boxShadow: '0 2px 12px rgba(0, 0, 0, .8)',
+            background: '#0e1013',
+            position: 'fixed',
+            overflowY: 'auto',
+            maxHeight: '110px',
+            width: '205px',
+            cursor: 'pointer'
+        };
     }
 
     render() {
         return (
             <ReactAutocomplete
-                items={ this.props.available.filter( item => !this.props.active.includes( item.id ) ) }
-                shouldItemRender={ ( item, value ) => value.length > 0 && item.name.toLowerCase().indexOf( value.toLowerCase() ) > -1 }
+                items={ filterItems( this.props.available, this.props.active ) }
+                shouldItemRender={ shouldItemRender }
                 getItemValue={ item => item.name }
-                menuStyle={{
-                    borderRadius: '3px',
-                    boxShadow: '0 2px 12px rgba(0, 0, 0, .8)',
-                    background: '#0e1013',
-                    position: 'fixed',
-                    overflowY: 'auto',
-                    maxHeight: '110px',
-                    width: '205px',
-                    cursor: 'pointer'
-                }}
-                renderMenu={ function( items, value, style ) {
-                    return value.length ? <div style={{ ...style, ...this.menuStyle }} children={ items }/> : <div />;
-                }}
-                renderInput={ props => <input className="filter-autocomplete-input" {...props} placeholder={ this.props.loading ? 'Loading...' : `Search ${ this.props.filterKey }` } /> }
-                renderItem={ ( item, highlighted ) => (
-                    <div
-                        className="filter-item"
-                        key={ item.id }
-                        style={{
-                            paddingLeft: '5px',
-                            backgroundColor : highlighted ? '#1b2c42' : 'transparent' //#1b2c42
-                        }}
-                    >
-                        <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : item.count }}></span>
-                        <span className="filter-item-name" dangerouslySetInnerHTML={{ __html : item.name }}></span>
-                    </div>
-                )}
+                renderMenu={ ( items, value, style ) => renderMenu( items, value, { ...style, ...this.style } ) }
+                renderInput={ props => renderInput( props, this.props.filterKey, this.props.loading ) }
+                renderItem={ renderItem }
                 value={ this.state.value }
                 onChange={ event => {
                     const { value } = event.target;

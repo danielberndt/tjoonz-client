@@ -17,7 +17,6 @@ export default class extends Component {
 
     componentDidUpdate( prevProps ) {
         if( this.props.page === 1 && prevProps.isLoading === true && this.props.isLoading === false ) { //prevProps.mixes.length > this.props.mixes.length
-            console.log('scrolled');
             this.scrolled();
         }
     }
