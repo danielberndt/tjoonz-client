@@ -23,6 +23,22 @@ export default class extends Component {
         }
     }
 
+    /**
+     * Makes setState thenable, which might be considered anti-pattern.
+     * See: https://github.com/facebook/react/issues/2642
+     */
+    setState( state, callback = () => {} ) {
+        return new Promise(( resolve, reject ) => {
+            super.setState( state, () => {
+                if( typeof callback !== 'function' ) {
+                    reject( `${ callback } is not a function` );
+                } else {
+                    resolve( callback() );
+                }
+            });
+        });
+    }
+
     componentDidMount() {
         this.getMixes();
     }
@@ -56,13 +72,13 @@ export default class extends Component {
         this.setState({
             query,
             page : 1
-        }, () => this.getMixes() );
+        }).then( this.getMixes );
     }
 
     getMixes = () => {
         this.setState({
             loadingMixes : true
-        }, () => {
+        }).then( () => {
             const { query, page } = this.state;
             const segments = Object.keys( query ).filter( key => query[ key ] && query[ key ].ids.length ).map( key => {
                 // Must use ',' separator for now, until I fix WP API to accept better taxonomy filters.
@@ -108,13 +124,13 @@ export default class extends Component {
     getNextPage = () => {
         this.setState( prevState => ({
             page : prevState.page + 1
-        }), this.getMixes );
+        })).then( this.getMixes );
     }
 
     getDetails = id => {
         this.setState({
             loadingDetails : true
-        }, () => {
+        }).then( () => {
             fetch( `http://beta.tjoonz.com/wp-json/wp/v2/posts/${ id }?_embed` )
                 .then( response => response.json() )
                 .then( details => this.setState({
