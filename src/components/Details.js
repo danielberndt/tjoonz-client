@@ -9,6 +9,7 @@ export default class extends Component {
         }
         const featuredImage = getFeaturedImage( this.props._embedded['wp:featuredmedia'] );
         const publishDate = getPublishDate( this.props.date_gmt );
+        const placeholderSrc = getArtworkSrc( featuredImage, 'thumbnail' );
         const artworkSrc = getArtworkSrc( featuredImage, 'medium' );
         const artists = printTermNames( 'artist', this.props._embedded['wp:term'] );
         const genres = filterTerms( 'genre', this.props._embedded['wp:term'] );
@@ -17,7 +18,7 @@ export default class extends Component {
         return (
             <ScrollPanel>
                 <div className="mix-details">
-                    <div className="artwork">
+                    <div className="artwork" style={{ backgroundImage : `url("${ placeholderSrc }")`, backgroundSize : 'cover' }}>
                         <img width="265" height="265" alt="" src={ this.props.isLoading ? '' : artworkSrc } />
                     </div>
                     <div className="meta">

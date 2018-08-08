@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { getFeaturedImage, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../../helpers/metadata';
+import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../../helpers/metadata';
 
 export default class extends Component {
     render() {
         const featuredImage = getFeaturedImage( this.props._embedded['wp:featuredmedia'] );
-        const artworkSrc = featuredImage ? featuredImage.media_details.sizes.thumbnail.source_url : 'http://placehold.it/54x54?text=NO+ARTWORK';
+        const artworkSrc = getArtworkSrc( featuredImage, 'thumbnail' );
         const publishDate = getPublishDate( this.props.date_gmt );
         const artists = printTermNames( 'artist', this.props._embedded['wp:term'] );
         const genres = filterTerms( 'genre', this.props._embedded['wp:term'] );
