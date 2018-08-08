@@ -67,6 +67,7 @@
     clear: left;
 }
 
+.mix-details .tax .label,
 .mix-list-item .tax .label {
     display: inline-block;
     margin-left: 5px;
@@ -75,10 +76,12 @@
     transform: skewX( -15deg );
     font-size: .9em;
 }
+.mix-details .tax .label > span,
 .mix-list-item .tax .label > span {
     display: inline-block;
     transform: skewX( 15deg );
 }
+.mix-details .tax span:first-child .label:first-child,
 .mix-list-item .tax span:first-child .label:first-child {
     margin-left: 0;
 }
