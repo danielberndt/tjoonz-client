@@ -32,3 +32,5 @@ export const renderItem = ( item, highlighted ) => (
         <span className="filter-item-name" dangerouslySetInnerHTML={{ __html : item.name }}></span>
     </div>
 );
+
+export const sortItems = ( itemA, itemB, value ) => itemB.count - itemA.count;

@@ -6,6 +6,7 @@ import {
     , renderMenu
     , renderInput
     , renderItem
+    , sortItems
 } from '../../helpers/autocomplete';
 
 export default class extends Component {
@@ -35,6 +36,7 @@ export default class extends Component {
                 renderMenu={ ( items, value, style ) => renderMenu( items, value, { ...style, ...this.style } ) }
                 renderInput={ props => renderInput( props, this.props.filterKey, this.props.loading ) }
                 renderItem={ renderItem }
+                sortItems={ sortItems }
                 value={ this.state.value }
                 onChange={ event => {
                     const { value } = event.target;
