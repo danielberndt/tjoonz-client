@@ -3,7 +3,9 @@ import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './index.css';
 import Header from './components/Header';
-import layouts from './layouts';
+import layouts from './layouts/';
+
+const { Home, Mix, Search } = layouts;
 
 const Player = () => (
     <div id="player">Player</div>
@@ -45,16 +47,16 @@ class Root extends React.Component {
             <BrowserRouter>
                 <div className="app">
                     <Switch>
-                        <Route exact path="/" component={ layouts.Home } />
-                        <Route path="/mix/:slug" component={ layouts.Mix } />
+                        <Route exact path="/" component={ Home } />
+                        <Route path="/mix/:slug" component={ Mix } />
                         <Route path="/search" render={ props => (
-                            <layouts.Search
-                            { ...props }
-                            recognisedKeys={[
-                                'artists',
-                                'genres',
-                                'tags'
-                            ]}
+                            <Search
+                                { ...props }
+                                recognisedKeys={[
+                                    'artists',
+                                    'genres',
+                                    'tags'
+                                ]}
                             />
                         )} />
                         <Route path="/chart" component={ layouts.Double } />
