@@ -42,6 +42,17 @@ class Root extends React.Component {
         ;
     }
 
+    renderRouteComponent = ( Component, ...rest ) => {
+        return <Component
+            onPlayMix={ this.playMix }
+            { ...Object.assign( {}, ...rest ) }
+        />;
+    }
+
+    playMix = id => {
+        console.log( `Something requested to play mix with ID ${ id }` );
+    }
+
     render() {
         return (
             <BrowserRouter>
@@ -49,16 +60,7 @@ class Root extends React.Component {
                     <Switch>
                         <Route exact path="/" component={ Home } />
                         <Route path="/mix/:slug" component={ Mix } />
-                        <Route path="/search" render={ props => (
-                            <Search
-                                { ...props }
-                                recognisedKeys={[
-                                    'artists',
-                                    'genres',
-                                    'tags'
-                                ]}
-                            />
-                        )} />
+                        <Route path="/search" render={ props => this.renderRouteComponent( Search, props, { recognisedKeys : [ 'artists', 'genres', 'tags' ] } ) } />
                         <Route path="/chart" component={ layouts.Double } />
                         <Route path="/my" component={ layouts.Double } />
                         <Route path="/about" component={ layouts.Single } />

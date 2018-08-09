@@ -146,6 +146,7 @@ export default class extends Component {
         if( this.state.details.id === id ) {
             event.stopPropagation(); // prevents triggering getDetails
         }
+        this.props.onPlayMix( id );
     }
 
     render() {
