@@ -14,7 +14,7 @@ export default class extends Component {
             <div className="mix-list-item" onClick={ () => this.props.onClick( this.props.id ) }>
                 <div className="artwork">
                     <img width="54" height="54" alt="" src={ artworkSrc } />
-                    <button>Play</button>
+                    <button onClick={ event => this.props.onPlay( this.props.id, event ) }>Play</button>
                 </div>
                 <div className="meta">
                     <div className="published"><span>{ publishDate }</span></div>

@@ -12,7 +12,9 @@ export default class extends Component {
             query,
             page           : 1,
             results        : [],
-            details        : 0,
+            details        : {
+                id : 0
+            },
             loadingMixes   : true,
             loadingDetails : false,
             exhausted      : false
@@ -140,6 +142,12 @@ export default class extends Component {
         });
     }
 
+    playMix = ( id, event ) => {
+        if( this.state.details.id === id ) {
+            event.stopPropagation(); // prevents triggering getDetails
+        }
+    }
+
     render() {
         return (
             <div className="layout layout-triple">
@@ -153,7 +161,7 @@ export default class extends Component {
                         />
                     </div>
                     <div className="panel">
-                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } /> : null }
+                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } /> : null }
                     </div>
                     <div className="panel">
                         <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
