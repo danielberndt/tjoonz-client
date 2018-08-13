@@ -36,7 +36,7 @@ export const fetchPage = ( endpoint, page, perPage = 10, recursive = false, excl
     if( exclude.length ) {
         segments.push( `&exclude=${ exclude.join( ',' ) }` );
     }
-    return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ segments.join( '' ) }` )
+    return fetch( `${ process.env.REACT_APP_WPAPI_URL }/${ segments.join( '' ) }` )
         .then( response => response.json() )
         .then( currentPage => {
             if( !currentPage.length ) {

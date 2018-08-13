@@ -30,7 +30,7 @@ class Root extends React.Component {
     }
 
     componentDidMount() {
-        const dataURL = "http://beta.tjoonz.com/wp-json/wp/v2/posts?_embed";
+        const dataURL = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed`;
         fetch( dataURL )
             .then( response => response.json() )
             .then( mixes => {

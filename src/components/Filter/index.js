@@ -48,7 +48,7 @@ export default class extends Component {
     }
 
     loadAvailableFilters = ( key, endpoint, top = 10 ) => {
-        return fetch( `http://beta.tjoonz.com/wp-json/wp/v2/${ endpoint }?per_page=${ top }&page=1&orderby=count&order=desc` )
+        return fetch( `${ process.env.REACT_APP_WPAPI_URL }/${ endpoint }?per_page=${ top }&page=1&orderby=count&order=desc` )
             .then( response => response.json() )
             .then( exclude => fetchPage( endpoint, 1, 100, true, exclude.map( term => term.id ) ).then( list => {
                 this.setState({

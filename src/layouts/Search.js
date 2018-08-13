@@ -92,9 +92,9 @@ export default class extends Component {
                 // TEMPORARY FIX
                 // todo: change taxonomy registration in WordPress so I can avoid this
                 // segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' )
-                url = `http://beta.tjoonz.com/wp-json/wp/v2/posts?_embed&per_page=10&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
+                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=10&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
             } else {
-                url = `http://beta.tjoonz.com/wp-json/wp/v2/posts?_embed&per_page=10&page=${ page }`;
+                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=10&page=${ page }`;
             }
             fetch( url ).then( response => response.json() ).then( results => {
                 if( results.code === 'rest_post_invalid_page_number' ) {
@@ -134,7 +134,7 @@ export default class extends Component {
             this.setState({
                 loadingDetails : true
             }).then( () => {
-                fetch( `http://beta.tjoonz.com/wp-json/wp/v2/posts/${ id }?_embed` )
+                fetch( `${ process.env.REACT_APP_WPAPI_URL }/posts/${ id }?_embed` )
                     .then( response => response.json() )
                     .then( details => this.setState({
                         details,
