@@ -130,22 +130,21 @@ export default class extends Component {
     }
 
     getDetails = id => {
-        this.setState({
-            loadingDetails : true
-        }).then( () => {
-            fetch( `http://beta.tjoonz.com/wp-json/wp/v2/posts/${ id }?_embed` )
-                .then( response => response.json() )
-                .then( details => this.setState({
-                    details,
-                    loadingDetails : false
-                }));
-        });
+        if( this.state.details.id !== id ) {
+            this.setState({
+                loadingDetails : true
+            }).then( () => {
+                fetch( `http://beta.tjoonz.com/wp-json/wp/v2/posts/${ id }?_embed` )
+                    .then( response => response.json() )
+                    .then( details => this.setState({
+                        details,
+                        loadingDetails : false
+                    }));
+            });
+        }
     }
 
     playMix = ( id, event ) => {
-        if( this.state.details.id === id ) {
-            event.stopPropagation(); // prevents triggering getDetails
-        }
         this.props.onPlayMix( id );
     }
 
