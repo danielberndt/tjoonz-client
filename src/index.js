@@ -3,13 +3,10 @@ import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './index.css';
 import Header from './components/Header';
+import Player from './components/Player';
 import layouts from './layouts/';
 
 const { Home, Mix, Search } = layouts;
-
-const Player = () => (
-    <div id="player">Player</div>
-);
 
 class Root extends React.Component {
     constructor( props ) {
