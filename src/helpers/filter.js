@@ -28,7 +28,7 @@ export const createRoute = query => {
 
 export const fetchPage = ( endpoint, page, perPage = 10, recursive = false, exclude = [], orderBy = 'name', descending = false  ) => {
     const segments = [];
-    segments.push( endpoint );    
+    segments.push( endpoint );
     segments.push( `?per_page=${ perPage }` );
     segments.push( `&page=${ page++ }` );
     segments.push( `&orderby=${ orderBy }` );

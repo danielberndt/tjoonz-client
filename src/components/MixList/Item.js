@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../../helpers/metadata';
+import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, linkLabelsFor, spanLabelsFor } from '../../helpers/metadata';
 
 export default class extends Component {
     render() {
@@ -13,17 +13,21 @@ export default class extends Component {
         return (
             <div className="mix-list-item" onClick={ () => this.props.onClick( this.props.id ) }>
                 <div className="artwork">
-                    <img width="54" height="54" alt="" src={ artworkSrc } />
-                    <button onClick={ event => this.props.onPlay( this.props.id, event ) }>Play</button>
+                    <img width="34" height="34" alt="" src={ artworkSrc } />
                 </div>
-                <div className="meta">
-                    <div className="published"><span>{ publishDate }</span></div>
-                    <div className="title"><span dangerouslySetInnerHTML={{ __html: this.props.title.rendered }}></span></div>
-                    <div className="artists"><span dangerouslySetInnerHTML={{ __html: artists }}></span></div>
+                <div className="controls">&nbsp;</div>
+                <div className="artists">
+                    <span dangerouslySetInnerHTML={{ __html: artists }}></span>
                 </div>
-                <div className="tax">
-                    <span className="genres">{ spanLabelsFor( genres ) }</span>
+                <div className="title">
+                    <span dangerouslySetInnerHTML={{ __html: this.props.title.rendered }}></span>
+                </div>
+                <div className="labels">
+                    <span className="genres">{ linkLabelsFor( genres, this.props.history ) }</span>
                     <span className="tags">{ spanLabelsFor( tags ) }</span>
+                </div>
+                <div className="published">
+                    <span>{ publishDate }</span>
                 </div>
             </div>
         );

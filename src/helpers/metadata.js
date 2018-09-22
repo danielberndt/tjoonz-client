@@ -19,10 +19,8 @@ export const getArtworkSrc = ( featuredImage, size = 'full' ) => {
 }
 
 export const getPublishDate = dateGmt => {
-    const now = new Date();
     const date = new Date( `${ dateGmt }Z` );
-    const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-    return `${ date.getDate() } ${ months[ date.getMonth() ] }${ date.getFullYear() < now.getFullYear() ? ` ${ date.getFullYear() }` : '' }`;
+    return `${ date.getFullYear() }-${ `0${ date.getMonth() + 1 }`.slice( -2 ) }-${ `0${ date.getDate() }`.slice( -2 ) }`;
 }
 
 export const filterTerms = ( taxonomy, wpTerm ) => {
@@ -40,6 +38,8 @@ export const spanLabelsFor = terms => {
     return terms.map(( term, index ) => <span key={ index } className="label"><span dangerouslySetInnerHTML={{ __html : term.name }}></span></span> );
 };
 
-export const linkLabelsFor = terms => {
-    return terms.map(( term, index ) => <a key={ index } className="label" href={ term.link }><span dangerouslySetInnerHTML={{ __html : term.name }}></span></a> );
+export const linkLabelsFor = ( terms, history ) => {
+    // TEMPORARY FIX
+    // todo: change taxonomy registration in WordPress so I can avoid this
+    return terms.map(( term, index ) => <button key={ index } className="label" onClick={ () => history.push( `/search?${ term.taxonomy.replace( 'genre', 'genres' ).replace( 'artist', 'artists' ) }=${ term.id }` ) }><span dangerouslySetInnerHTML={{ __html : term.name }}></span></button> );
 }

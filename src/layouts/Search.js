@@ -150,23 +150,21 @@ export default class extends Component {
 
     render() {
         return (
-            <div className="layout layout-triple">
-                <div className="wrap">
-                    <div className="panel">
-                        <Filter
-                            filter={ this.state.query }
-                            onFilterChange={ this.filterChanged }
-                            onRelationChange={ this.relationChanged }
-                            { ...this.props }
-                        />
-                    </div>
-                    <div className="panel">
-                        { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } /> : null }
-                    </div>
-                    <div className="panel">
-                        <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
-                    </div>
-                </div>
+            <div className="wrap layout">
+                <aside className="small">
+                    <Filter
+                        filter={ this.state.query }
+                        onFilterChange={ this.filterChanged }
+                        onRelationChange={ this.relationChanged }
+                        { ...this.props }
+                    />
+                </aside>
+                <section className="main">
+                    { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } history={ this.props.history } /> : null }
+                </section>
+                <aside className="medium">
+                    <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
+                </aside>
             </div>
         );
     }

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 html {
-    font-size: 17px;
+    font-size: 15px;
     font-family: 'Abel', sans-serif;
     font-weight: 100;
     color: #cad1d9;
@@ -41,41 +41,80 @@ button {
 }
 
 .wrap {
-    width: 1180px;
-    padding: 0 30px;
+    width: 1440px;
+    padding-left: 40px;
+    padding-right: 40px;
     margin: 0 auto;
 }
 
+#navigation {
+    font-size: 17px;
+}
+
 .layout {
-    padding-top: 46px;
+    display: flex;
+    padding-top: 56px;
     padding-bottom: 100px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: flex-start;
 }
 
-.layout .wrap {
-    display: grid;
-    padding-top: 30px;
-    padding-bottom: 30px;
+section {
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
-.layout-double > div { grid-template-columns: 280px auto; }
-.layout-triple > div { grid-template-columns: 220px auto 280px; }
-
-.layout .wrap > div,
-.layout .panel-scroll-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.layout .wrap > div:first-child,
-.layout .wrap > div:first-child .panel-scroll-content {
-    padding-left: 0
-}
-.layout .wrap > div:last-child,
-.layout .wrap > div:last-child .panel-scroll-content {
-    padding-right: 0
+aside {
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
-.layout-triple .panel {
+aside.small {
+    flex-basis: 220px;
+}
+
+aside.medium {
+    width: 280px;
+    flex-basis: 280px;
+}
+
+aside.large {
+    flex-basis: 320px;
+}
+
+.main {
+    padding: 0 30px;
+}
+
+.mix-details .artwork {
+    height: 280px;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.mix-details .artwork div {
     height: 100%;
+    background-size: cover;
+}
+
+.mix-details .artwork .clear {
+    filter: none;
+    transition: filter 200ms linear;
+}
+.mix-details .artwork .blur {
+    filter: blur( 6px );
+    transition: none;
+}
+
+.mix-details .artwork img {
+    object-fit: cover;
+}
+
+.mix-details .artwork .blur img {
+    display: none;
 }
 
 #player {
@@ -85,13 +124,4 @@ button {
     width: 100%;
     height: 100px;
     background-color: #0e1013;
-}
-
-.layout .panel-scroll {
-    position: fixed;
-    top: 0;
-    width: 220px;
-    height: 100vh;
-    padding-top: 76px;
-    padding-bottom: 130px;
 }

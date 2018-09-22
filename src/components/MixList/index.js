@@ -50,7 +50,7 @@ export default class extends Component {
                 <div className="mix-list-items">
                     {
                         this.props.mixes.map(( mix, index ) => {
-                            return <Item key={ mix.id } onClick={ this.props.onItemClick } onPlay={ this.props.onItemPlay } { ...mix } />
+                            return <Item key={ mix.id } onClick={ this.props.onItemClick } onPlay={ this.props.onItemPlay } history={ this.props.history } { ...mix } />
                         })
                     }
                 </div>

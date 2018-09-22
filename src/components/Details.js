@@ -5,11 +5,14 @@ import ScrollPanel from './ScrollPanel';
 export default class extends Component {
     constructor( props ) {
         super( props );
+        this.state = {
+            blur : true
+        };
         this.showLoading();
     }
     
-    shouldComponentUpdate( nextProps ) {
-        return ( !this.props.isLoading && nextProps.isLoading ) || ( this.props.isLoading && !nextProps.isLoading );
+    shouldComponentUpdate( nextProps, nextState ) {
+        return ( !this.props.isLoading && nextProps.isLoading ) || ( this.props.isLoading && !nextProps.isLoading ) || ( this.state.blur  && !nextState.blur );
     }
 
     showLoading = () => {
@@ -20,6 +23,9 @@ export default class extends Component {
         this.artists = [];
         this.genres = [];
         this.tags = [];
+        this.setState({
+            blur : true
+        });
     }
 
     showDetails = () => {
@@ -31,6 +37,12 @@ export default class extends Component {
         this.artists = printTermNames( 'artist', this.props._embedded['wp:term'] );
         this.genres = filterTerms( 'genre', this.props._embedded['wp:term'] );
         this.tags = filterTerms( 'post_tag', this.props._embedded['wp:term'] );
+    }
+
+    revealArtwork = () => {
+        this.setState({
+            blur : false
+        });
     }
     
     render() {
@@ -46,8 +58,10 @@ export default class extends Component {
         return (
             <ScrollPanel>
                 <div className="mix-details">
-                    <div className="artwork" style={{ backgroundImage : `url("${ this.placeholderSrc }")`, backgroundSize : 'cover' }}>
-                        <img width="265" height="265" alt="" src={ this.artworkSrc } />
+                    <div className="artwork">
+                        <div className={ this.state.blur ? 'blur' : 'clear' } style={{ backgroundImage : `url("${ this.placeholderSrc }")` }}>
+                            <img width="280" height="280" alt="" src={ this.artworkSrc } onLoad={ this.revealArtwork } />
+                        </div>
                     </div>
                     <div className="meta">
                         <div className="published"><span>{ this.publishDate }</span></div>

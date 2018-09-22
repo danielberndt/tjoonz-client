@@ -1,95 +1,76 @@
-.mix-list-header,
-.mix-list-item {
-    margin-bottom: 15px;
-}
-.mix-list-item:hover {
-    cursor: pointer;
-}
-.mix-list-header,
-.mix-list-item .meta {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-}
-.mix-list-header > div,
-.mix-list-item .meta > div,
-.mix-list-item .tax > span:first-child {
-    margin-left: 15px;
-}
-.mix-list-header > div,
-.mix-list-item .meta > div {
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-.mix-list-header > div:first-child {
-    margin-left: 69px;
-}
-.mix-list-header .artwork {
-    flex-basis: 54px;
-}
-.mix-list-item .artwork {
-    position: relative;
-    float: left;
-    line-height: 0;
-}
-.mix-list-item .artwork button {
-    position: absolute;
-    display: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-}
-.mix-list-item:hover .artwork button {
-    display: block;
-}
-.mix-list-header .published,
-.mix-list-item .meta .published {
-    flex-basis: 90px;
-}
-.mix-list-header .title,
-.mix-list-item .meta .title {
-    flex-grow: 1;
-    flex-shrink: 1;
-}
-.mix-list-header .artists,
-.mix-list-item .meta .artists {
-    flex-basis: 120px;
+.mix-list {
+    max-width: 100%;
 }
 
-.mix-list-item::after {
+/* HEADER */
+.mix-list-header::after {
     display: block;
     content: '';
     clear: left;
 }
 
-.mix-details .tax .label,
-.mix-list-item .tax .label {
-    display: inline-block;
-    margin-left: 5px;
-    padding: 0 5px;
-    background-color: #242a32;
-    transform: skewX( -15deg );
-    font-size: .9em;
-}
-.mix-details .tax .label > span,
-.mix-list-item .tax .label > span {
-    display: inline-block;
-    transform: skewX( 15deg );
-}
-.mix-details .tax span:first-child .label:first-child,
-.mix-list-item .tax span:first-child .label:first-child {
-    margin-left: 0;
+.mix-list-header div {
+    float: left;
+    margin-bottom: 4px;
 }
 
-.mix-details .artwork {
-    height: 265px;
-    background-image: url( 'http://placehold.it/265x265?text=LOADING' );
+.mix-list-header span {
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
 }
-.mix-details .artwork img {
-    object-fit: cover;
+
+.mix-list-header .artists {
+    margin-left: calc( 34px + 68px );
+}
+
+/* ITEMS */
+.mix-list-item {
+    height: 34px;
+    margin-bottom: 2px;
+    line-height: 34px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    background-color: #242a32;
+}
+
+.mix-list-item > div {
+    float: left;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mix-list-item .artwork {
+    width: 34px;
+    line-height: 0;
+}
+
+.mix-list-item .controls {
+    width: 68px;
+    padding: 0 10px;
+}
+
+.mix-list .artists {
+    width: 15%;
+    padding-right: 10px;
+}
+
+.mix-list .title {
+    width: 30%;
+    padding-right: 10px;
+}
+
+.mix-list .labels {
+    width: calc( 55% - 173px );
+    padding-right: 10px;
+}
+
+.mix-list .published {
+    width: 65px;
+}
+
+.mix-list-item .published {
+    color: #8899a9;
 }
