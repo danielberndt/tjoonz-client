@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class extends Component {
     constructor( props ) {
@@ -16,10 +17,10 @@ export default class extends Component {
 
     render() {
         return (
-            <div className={ `filter-item ${ this.props.active ? 'active' : '' }` } id={ `filter-${ this.props.filterKey }-${ this.props.id }` }>
+            <div className={ `filter-item ${ this.props.active ? 'active' : '' }` } id={ `filter-${ this.props.filterKey }-${ this.props.id }` } onClick={ this.toggle }>
                 <label>
-                    <input type="checkbox" checked={ this.state.checked } onChange={ this.toggle } />
-                    <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : this.props.active ? `&times;` : this.props.count }}></span>
+                    <FontAwesomeIcon icon={[ 'far', this.state.checked ? 'check-square' : 'square' ]} fixedWidth />
+                    <span className="filter-item-count">{ this.props.count }</span>
                     <span className="filter-item-name" dangerouslySetInnerHTML={{ __html : this.props.name }}></span>
                 </label>
             </div>

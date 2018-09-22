@@ -42,6 +42,10 @@
     text-overflow: ellipsis;
 }
 
+.mix-list-item > div > span {
+    cursor: default;
+}
+
 .mix-list-item .artwork {
     width: 34px;
     line-height: 0;
