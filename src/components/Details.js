@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../helpers/metadata';
-import ScrollPanel from './ScrollPanel';
 
 export default class extends Component {
     constructor( props ) {
@@ -56,7 +55,7 @@ export default class extends Component {
         }
 
         return (
-            <ScrollPanel>
+            <aside>
                 <div className="mix-details">
                     <div className="artwork">
                         <div className={ this.state.blur ? 'blur' : 'clear' } style={{ backgroundImage : `url("${ this.placeholderSrc }")` }}>
@@ -73,7 +72,7 @@ export default class extends Component {
                         <span className="tags">{ spanLabelsFor( this.tags ) }</span>
                     </div>
                 </div>
-            </ScrollPanel>
+            </aside>
         );
     }
 }

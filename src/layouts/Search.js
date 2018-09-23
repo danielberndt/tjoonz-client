@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import StickyBox from "react-sticky-box";
 import { parseRoute, createRoute } from '../helpers/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
@@ -151,20 +152,24 @@ export default class extends Component {
     render() {
         return (
             <div className="wrap layout">
-                <aside className="small">
+                <StickyBox className={ `sidebar small ${ this.state.filterAtBottom ? "bottom" : "" }` } offset={ 56 } onChangeMode={( oldMode, newMode ) => {
+                    this.setState({ filterAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' });
+                }}>
                     <Filter
                         filter={ this.state.query }
                         onFilterChange={ this.filterChanged }
                         onRelationChange={ this.relationChanged }
                         { ...this.props }
                     />
-                </aside>
+                </StickyBox>
                 <section className="main">
                     { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } history={ this.props.history } /> : null }
                 </section>
-                <aside className="medium">
+                <StickyBox className={ `sidebar medium ${ this.state.detailsAtBottom ? "bottom" : "" }` } offset={ 56 } onChangeMode={( oldMode, newMode ) => {
+                    this.setState({ detailsAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' });
+                }}>
                     <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
-                </aside>
+                </StickyBox>
             </div>
         );
     }

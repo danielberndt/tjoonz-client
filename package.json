@@ -11,15 +11,15 @@
     "query-string": "^6.1.0",
     "react": "^16.4.1",
     "react-autocomplete": "^1.8.1",
-    "react-custom-scroll": "^3.2.2",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-sticky-box": "^0.6.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "set CI=true && react-scripts test --env=jsdom --updateSnapshot",
     "coverage": "react-scripts test --env=jsdom \"--coverage\"",
     "eject": "react-scripts eject"
   },

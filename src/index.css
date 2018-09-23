@@ -54,7 +54,7 @@ button {
 .layout {
     display: flex;
     padding-top: 56px;
-    padding-bottom: 100px;
+    padding-bottom: 110px;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -67,21 +67,29 @@ section {
     flex-shrink: 1;
 }
 
-aside {
+.sidebar {
     flex-grow: 0;
     flex-shrink: 0;
 }
 
-aside.small {
+.sidebar > aside {
+    margin-bottom: 110px;
+}
+
+.sidebar.bottom > aside {
+    margin-bottom: 0;
+}
+
+.sidebar.small {
     flex-basis: 220px;
 }
 
-aside.medium {
+.sidebar.medium {
     width: 280px;
     flex-basis: 280px;
 }
 
-aside.large {
+.sidebar.large {
     flex-basis: 320px;
 }
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { fetchPage } from '../../helpers/filter';
 import Autocomplete from './Autocomplete';
 import Item from './Item';
-import ScrollPanel from '../ScrollPanel';
 import './style.css';
 
 export default class extends Component {
@@ -90,7 +89,7 @@ export default class extends Component {
         const activeArtists = this.props.filter.artists ? this.props.filter.artists.ids : [];
         const activeTags    = this.props.filter.tags    ? this.props.filter.tags.ids    : [];
         return (
-            <ScrollPanel>
+            <aside>
                 <div className="filters">
                     <big>Artists</big>
                     <label><input type="checkbox" checked={ this.state.andRelation.artists } onChange={ () => this.relationChanged( 'artists' ) } /> ALL / ANY</label>
@@ -156,7 +155,7 @@ export default class extends Component {
                         this.state.loading ? null : <button className="expand" onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Show { this.state.genresHidden ? 'all' : 'less' } genres</button>
                     }
                 </div>
-            </ScrollPanel>
+            </aside>
         );
     }
 }

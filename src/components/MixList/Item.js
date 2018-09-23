@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, linkLabelsFor, spanLabelsFor } from '../../helpers/metadata';
+import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../../helpers/metadata';
 
 export default class extends Component {
     render() {
@@ -23,7 +23,7 @@ export default class extends Component {
                     <span dangerouslySetInnerHTML={{ __html: this.props.title.rendered }}></span>
                 </div>
                 <div className="labels">
-                    <span className="genres">{ linkLabelsFor( genres, this.props.history ) }</span>
+                    <span className="genres">{ spanLabelsFor( genres ) }</span>
                     <span className="tags">{ spanLabelsFor( tags ) }</span>
                 </div>
                 <div className="published">
