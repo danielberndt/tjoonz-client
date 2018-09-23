@@ -97,34 +97,6 @@ section {
     padding: 0 30px;
 }
 
-.mix-details .artwork {
-    height: 280px;
-    line-height: 0;
-    overflow: hidden;
-}
-
-.mix-details .artwork div {
-    height: 100%;
-    background-size: cover;
-}
-
-.mix-details .artwork .clear {
-    filter: none;
-    transition: filter 200ms linear;
-}
-.mix-details .artwork .blur {
-    filter: blur( 6px );
-    transition: none;
-}
-
-.mix-details .artwork img {
-    object-fit: cover;
-}
-
-.mix-details .artwork .blur img {
-    display: none;
-}
-
 #player {
     position: fixed;
     bottom: 0;
