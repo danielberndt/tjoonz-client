@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
       getFeaturedImage
     , getArtworkSrc
@@ -22,7 +23,10 @@ export default class extends Component {
                 <div className="artwork">
                     <img width="34" height="34" alt="" src={ artworkSrc } />
                 </div>
-                <div className="controls">&nbsp;</div>
+                <div className="controls">
+                    <button onClick={ () => this.props.onPlay( this.props.id ) }><FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /></button>
+                    <button><FontAwesomeIcon icon={[ 'far', 'layer-plus' ]} fixedWidth /></button>
+                </div>
                 <div className="artists">
                     <span dangerouslySetInnerHTML={{ __html: artists }}></span>
                 </div>

@@ -2,14 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { library as icons } from '@fortawesome/fontawesome-svg-core';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisH, faEllipsisV, faToggleOff, faToggleOn } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
 import './index.css';
 import Header from './components/Header';
 import Player from './components/Player';
 import layouts from './layouts/';
 
-icons.add( far, faEllipsisH, faEllipsisV, faToggleOff, faToggleOn );
+icons.add( far, fas, fal );
 
 const { Home, Mix, Search } = layouts;
 
