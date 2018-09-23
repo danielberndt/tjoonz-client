@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import StickyBox from "react-sticky-box";
-import { parseRoute, createRoute } from '../helpers/filter';
+import { parseRoute, createRoute } from '../utils/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
 import Details from '../components/Details';
+
+const resultsPerPage = 20;
 
 export default class extends Component {
     constructor( props ) {
@@ -93,9 +95,9 @@ export default class extends Component {
                 // TEMPORARY FIX
                 // todo: change taxonomy registration in WordPress so I can avoid this
                 // segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' )
-                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=10&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
+                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ resultsPerPage }&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
             } else {
-                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=10&page=${ page }`;
+                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ resultsPerPage }&page=${ page }`;
             }
             fetch( url ).then( response => response.json() ).then( results => {
                 if( results.code === 'rest_post_invalid_page_number' ) {
