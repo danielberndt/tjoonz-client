@@ -34,12 +34,10 @@ export default class extends Component {
     }
 
     footer = () => {
-        if( this.props.isLoading ) {
-            return <div>Loading mixes&hellip;</div>;
-        } else if( this.props.isExhausted ) {
+        if( this.props.isExhausted ) {
             return <div>No more mixes&hellip;</div>;
         } else {
-            return null;
+            return <div>Loading mixes&hellip;</div>;
         }
     }
 
