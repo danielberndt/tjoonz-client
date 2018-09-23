@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchPage } from '../../helpers/filter';
+import { fetchPage } from '../../utils/filter';
 import Autocomplete from './Autocomplete';
 import Item from './Item';
 import './style.css';

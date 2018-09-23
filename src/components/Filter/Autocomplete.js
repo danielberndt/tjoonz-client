@@ -7,7 +7,7 @@ import {
     , renderInput
     , renderItem
     , sortItems
-} from '../../helpers/autocomplete';
+} from '../../utils/autocomplete';
 
 export default class extends Component {
     constructor( props ) {

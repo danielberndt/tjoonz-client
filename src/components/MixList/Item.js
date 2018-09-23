@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { getFeaturedImage, getArtworkSrc, getPublishDate, filterTerms, printTermNames, spanLabelsFor } from '../../helpers/metadata';
+import {
+      getFeaturedImage
+    , getArtworkSrc
+    , getPublishDate
+    , filterTerms
+    , printTermNames
+    , spanLabelsFor
+} from '../../utils/metadata';
 
 export default class extends Component {
     render() {
