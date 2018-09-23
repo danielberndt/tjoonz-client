@@ -3,12 +3,18 @@ import Header from './Header';
 import Item from './Item';
 import './style.css';
 
+const endlessScrollTrigger = 500;
+
 export default class extends Component {
+    constructor( props ) {
+        super( props );
+        this.ready = false;
+    }
+
     componentDidMount() {
         this.scrolled();
         window.addEventListener( 'scroll', this.scrolled, false );
         window.addEventListener( 'resize', this.scrolled, false );
-        this.props.onMounted( this.props.mixes[ 0 ].id );
     }
 
     componentWillUnmount() {
@@ -17,7 +23,11 @@ export default class extends Component {
     }
 
     componentDidUpdate( prevProps ) {
-        if( this.props.page === 1 && prevProps.isLoading === true && this.props.isLoading === false ) { //prevProps.mixes.length > this.props.mixes.length
+        if( prevProps.mixes.length === 0 && this.props.mixes.length > 0 ) {
+            this.props.onMounted( this.props.mixes[ 0 ].id );
+            this.ready = true;
+        }
+        if( this.props.page === 1 && prevProps.isLoading === true && this.props.isLoading === false ) {
             this.scrolled();
         }
     }
@@ -27,7 +37,7 @@ export default class extends Component {
     }
 
     scrolled = () => {
-        const trigger = document.body.scrollHeight - window.innerHeight - 500;
+        const trigger = document.body.scrollHeight - window.innerHeight - endlessScrollTrigger;
         if( window.scrollY >= trigger && this.props.mixes.length && !this.props.isLoading && !this.props.isExhausted ) {
             this.props.onScrollToBottom();
         }
@@ -42,19 +52,23 @@ export default class extends Component {
     }
 
     render() {
-        const footer = this.footer();
-        return (
-            <div className="mix-list">
-                <Header />
-                <div className="mix-list-items">
-                    {
-                        this.props.mixes.map(( mix, index ) => {
-                            return <Item key={ mix.id } onClick={ this.props.onItemClick } onPlay={ this.props.onItemPlay } history={ this.props.history } { ...mix } />
-                        })
-                    }
+        if( this.ready ) {
+            const footer = this.footer();
+            return (
+                <div className="mix-list">
+                    <Header />
+                    <div className="mix-list-items">
+                        {
+                            this.props.mixes.map(( mix, index ) => {
+                                return <Item key={ mix.id } onClick={ this.props.onItemClick } onPlay={ this.props.onItemPlay } history={ this.props.history } { ...mix } />
+                            })
+                        }
+                    </div>
+                    { footer }
                 </div>
-                { footer }
-            </div>
-        );
+            );
+        } else {
+            return null;
+        }
     }
 }

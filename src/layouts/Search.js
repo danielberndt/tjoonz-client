@@ -152,9 +152,11 @@ export default class extends Component {
     render() {
         return (
             <div className="wrap layout">
-                <StickyBox className={ `sidebar small ${ this.state.filterAtBottom ? "bottom" : "" }` } offset={ 56 } onChangeMode={( oldMode, newMode ) => {
-                    this.setState({ filterAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' });
-                }}>
+                <StickyBox
+                    className={ `sidebar small ${ this.state.filterAtBottom ? "bottom" : "" }` }
+                    offset={ 56 }
+                    onChangeMode={( oldMode, newMode ) => this.setState({ filterAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' })}
+                >
                     <Filter
                         filter={ this.state.query }
                         onFilterChange={ this.filterChanged }
@@ -163,11 +165,23 @@ export default class extends Component {
                     />
                 </StickyBox>
                 <section className="main">
-                    { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } history={ this.props.history } onMounted={ this.getDetails } /> : null }
+                    <MixList
+                        mixes={ this.state.results }
+                        page={ this.state.page }
+                        history={ this.props.history }
+                        isLoading={ this.state.loadingMixes }
+                        isExhausted={ this.state.exhausted }
+                        onScrollToBottom={ this.getNextPage }
+                        onItemClick={ this.getDetails }
+                        onItemPlay={ this.playMix }
+                        onMounted={ this.getDetails }
+                    />
                 </section>
-                <StickyBox className={ `sidebar medium ${ this.state.detailsAtBottom ? "bottom" : "" }` } offset={ 56 } onChangeMode={( oldMode, newMode ) => {
-                    this.setState({ detailsAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' });
-                }}>
+                <StickyBox
+                    className={ `sidebar medium ${ this.state.detailsAtBottom ? "bottom" : "" }` }
+                    offset={ 56 }
+                    onChangeMode={( oldMode, newMode ) => this.setState({ detailsAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' })}
+                >
                     <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
                 </StickyBox>
             </div>
