@@ -163,7 +163,7 @@ export default class extends Component {
                     />
                 </StickyBox>
                 <section className="main">
-                    { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } history={ this.props.history } /> : null }
+                    { this.state.results.length ? <MixList mixes={ this.state.results } onScrollToBottom={ this.getNextPage } isLoading={ this.state.loadingMixes } isExhausted={ this.state.exhausted } page={ this.state.page } onItemClick={ this.getDetails } onItemPlay={ this.playMix } history={ this.props.history } onMounted={ this.getDetails } /> : null }
                 </section>
                 <StickyBox className={ `sidebar medium ${ this.state.detailsAtBottom ? "bottom" : "" }` } offset={ 56 } onChangeMode={( oldMode, newMode ) => {
                     this.setState({ detailsAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' });

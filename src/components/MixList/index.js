@@ -8,6 +8,7 @@ export default class extends Component {
         this.scrolled();
         window.addEventListener( 'scroll', this.scrolled, false );
         window.addEventListener( 'resize', this.scrolled, false );
+        this.props.onMounted( this.props.mixes[ 0 ].id );
     }
 
     componentWillUnmount() {
