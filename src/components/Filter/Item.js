@@ -20,7 +20,10 @@ export default class extends Component {
             <div className={ `filter-item ${ this.props.active ? 'active' : '' }` } id={ `filter-${ this.props.filterKey }-${ this.props.id }` } onClick={ this.toggle }>
                 <label>
                     <FontAwesomeIcon icon={[ 'far', this.state.checked ? 'check-square' : 'square' ]} fixedWidth />
-                    <span className="filter-item-count">{ this.props.count }</span>
+                    <span className="filter-item-count">
+                        <span>{ this.props.count }</span>
+                        <FontAwesomeIcon icon={[ 'far', 'times' ]} />
+                    </span>
                     <span className="filter-item-name" dangerouslySetInnerHTML={{ __html : this.props.name }}></span>
                 </label>
             </div>

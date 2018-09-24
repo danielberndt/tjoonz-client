@@ -39,6 +39,15 @@
     background-color: #242a32; /*#13161a;*/
 }
 
+.filter-item .filter-item-count svg,
+.filter-item.active:hover .filter-item-count span {
+    display: none;
+}
+
+.filter-item.active:hover .filter-item-count svg {
+    display: inline-block;
+}
+
 .filter-item.active {
     background-color: #242a32; /*#1b2c42;*/
 }
