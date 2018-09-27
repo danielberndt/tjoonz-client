@@ -98,7 +98,7 @@ export default class extends Component {
                             ANY
                             <FontAwesomeIcon
                                 icon={[ 'fal', 'toggle-on' ]}
-                                flip={ `${ this.state.andRelation.artists ? '' : 'horizontal' }` }
+                                { ...( this.state.andRelation.artists ? { flip : 'horizontal' } : {} ) }
                             />
                             ALL
                         </span>
@@ -121,7 +121,7 @@ export default class extends Component {
                             ANY
                             <FontAwesomeIcon
                                 icon={[ 'fal', 'toggle-on' ]}
-                                flip={ `${ this.state.andRelation.tags ? '' : 'horizontal' }` }
+                                { ...( this.state.andRelation.tags ? { flip : 'horizontal' } : {} ) }
                             />
                             ALL
                         </span>
@@ -144,7 +144,7 @@ export default class extends Component {
                             ANY
                             <FontAwesomeIcon
                                 icon={[ 'fal', 'toggle-on' ]}
-                                flip={ `${ this.state.andRelation.genres ? '' : 'horizontal' }` }
+                                { ...( this.state.andRelation.genres ? { flip : 'horizontal' } : {} ) }
                             />
                             ALL
                         </span>
