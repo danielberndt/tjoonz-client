@@ -27,6 +27,34 @@
     display: none;
 }
 
+.mix-details .actions {
+    margin-top: 2px;
+}
+
+.mix-details .actions button {
+    width: 86.666px;
+    height: 34px;
+    margin-left: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .85em;
+}
+.mix-details .actions button:first-child {
+    margin-left: 0;
+}
+
+.mix-details .actions button.primary {
+    background-color: #448aff;
+}
+
+.mix-details .actions button.secondary {
+    color: #8899a9;
+}
+
+.mix-details .actions button.secondary:hover {
+    color: #cad1d9;
+}
+
 .mix-details .meta > div {
     min-height: 34px;
     margin-bottom: 2px;

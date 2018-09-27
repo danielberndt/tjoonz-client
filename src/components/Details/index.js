@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
       getFeaturedImage
     , getArtworkSrc
@@ -25,7 +26,7 @@ export default class extends Component {
     showLoading = () => {
         this.placeholderSrc = '';
         this.artworkSrc = '';
-        this.publishDate = 'Loading';
+        this.publishDate = '';
         this.title = '';
         this.artists = [];
         this.genres = [];
@@ -69,6 +70,17 @@ export default class extends Component {
                         <div className={ this.state.blur ? 'blur' : 'clear' } style={{ backgroundImage : `url("${ this.placeholderSrc }")` }}>
                             <img width="280" height="280" alt="" src={ this.artworkSrc } onLoad={ this.revealArtwork } />
                         </div>
+                    </div>
+                    <div className="actions">
+                        <button className="primary">
+                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> Tracklist
+                        </button>
+                        <button className="secondary">
+                            <FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /> Play
+                        </button>
+                        <button className="secondary">
+                            <FontAwesomeIcon icon={[ 'far', 'layer-plus' ]} fixedWidth /> Queue
+                        </button>
                     </div>
                     <div className="meta">
                         <div className="published">
