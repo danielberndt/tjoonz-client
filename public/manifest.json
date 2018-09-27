@@ -1,0 +1,15 @@
+{
+  "short_name": "Tjoonz.com",
+  "name": "Tjoonz.com front-end web application",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#242a32",
+  "background_color": "#1a1f24"
+}
