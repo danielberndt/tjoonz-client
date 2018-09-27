@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StickyBox from "react-sticky-box";
+import StickyBox from '../StickyBox'; //'react-sticky-box';
 import { parseRoute, createRoute } from '../utils/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
@@ -155,9 +155,9 @@ export default class extends Component {
         return (
             <div className="wrap layout">
                 <StickyBox
-                    className={ `sidebar small ${ this.state.filterAtBottom ? "bottom" : "" }` }
-                    offset={ 56 }
-                    onChangeMode={( oldMode, newMode ) => this.setState({ filterAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' })}
+                    className="sidebar small"
+                    offsetTop={ 56 }
+                    offsetBottom={ 110 }
                 >
                     <Filter
                         filter={ this.state.query }
@@ -180,9 +180,9 @@ export default class extends Component {
                     />
                 </section>
                 <StickyBox
-                    className={ `sidebar medium ${ this.state.detailsAtBottom ? "bottom" : "" }` }
-                    offset={ 56 }
-                    onChangeMode={( oldMode, newMode ) => this.setState({ detailsAtBottom : oldMode === 'relative' && newMode === 'stickyBottom' })}
+                    className="sidebar medium"
+                    offsetTop={ 56 }
+                    offsetBottom={ 110 }
                 >
                     <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
                 </StickyBox>
