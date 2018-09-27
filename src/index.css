@@ -33,6 +33,7 @@ button {
     -moz-osx-font-smoothing: inherit;
     -webkit-appearance: none;
     cursor: pointer;
+    outline: none;
 }
 
 .app * {
