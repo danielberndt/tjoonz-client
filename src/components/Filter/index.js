@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchPage } from '../../utils/filter';
 import Autocomplete from './Autocomplete';
 import Item from './Item';
@@ -91,8 +92,17 @@ export default class extends Component {
         return (
             <aside>
                 <div className="filters">
-                    <big>Artists</big>
-                    <label><input type="checkbox" checked={ this.state.andRelation.artists } onChange={ () => this.relationChanged( 'artists' ) } /> ALL / ANY</label>
+                    <div className="header">
+                        <span>Artists</span>
+                        <span className="toggle" onClick={ () => this.relationChanged( 'artists' ) }>
+                            ANY
+                            <FontAwesomeIcon
+                                icon={[ 'fal', 'toggle-on' ]}
+                                { ...( this.state.andRelation.artists ? {} : { flip : 'horizontal' } ) }
+                            />
+                            ALL
+                        </span>
+                    </div>
                     <Autocomplete
                         loading={ this.state.loading }
                         filterKey="artists"
@@ -105,8 +115,17 @@ export default class extends Component {
                     }
                 </div>
                 <div className="filters">
-                    <big>Tags</big>
-                    <label><input type="checkbox" checked={ this.state.andRelation.tags } onChange={ () => this.relationChanged( 'tags' ) } /> ALL / ANY</label>
+                    <div className="header">
+                        <span>Tags</span>
+                        <span className="toggle" onClick={ () => this.relationChanged( 'tags' ) }>
+                            ANY
+                            <FontAwesomeIcon
+                                icon={[ 'fal', 'toggle-on' ]}
+                                { ...( this.state.andRelation.tags ? {} : { flip : 'horizontal' } ) }
+                            />
+                            ALL
+                        </span>
+                    </div>
                     <Autocomplete
                         loading={ this.state.loading }
                         filterKey="tags"
@@ -119,8 +138,17 @@ export default class extends Component {
                     }
                 </div>
                 <div className="filters">
-                    <big>Genres</big>
-                    <label><input type="checkbox" checked={ this.state.andRelation.genres } onChange={ () => this.relationChanged( 'genres' ) } /> ALL / ANY</label>
+                    <div className="header">
+                        <span>Genres</span>
+                        <span className="toggle" onClick={ () => this.relationChanged( 'genres' ) }>
+                            ANY
+                            <FontAwesomeIcon
+                                icon={[ 'fal', 'toggle-on' ]}
+                                { ...( this.state.andRelation.genres ? {} : { flip : 'horizontal' } ) }
+                            />
+                            ALL
+                        </span>
+                    </div>
                     {
                         this.state.loading ? null : this.state.filters.genres
                             .slice( 0, 10 )

@@ -68,7 +68,6 @@ __snapshots__
 
 # production
 /build
-/public
 
 # misc
 .DS_Store
