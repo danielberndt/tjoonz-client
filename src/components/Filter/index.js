@@ -86,6 +86,25 @@ export default class extends Component {
         }
     }
 
+    expandButton = () => {
+        if( this.state.loading ) {
+            return null;
+        } else {
+            return (
+                <button
+                    className="expand"
+                    onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }, () => {
+                        if( this.state.genresHidden ) {
+                            this.props.onCollapse();
+                        }
+                    }) }
+                >
+                    Show { this.state.genresHidden ? 'all' : 'less' } genres
+                </button>
+            );
+        }
+    }
+
     render() {
         const activeArtists = this.props.filter.artists ? this.props.filter.artists.ids : [];
         const activeTags    = this.props.filter.tags    ? this.props.filter.tags.ids    : [];
@@ -179,9 +198,7 @@ export default class extends Component {
                                     /> ))
                         }
                     </div>
-                    {
-                        this.state.loading ? null : <button className="expand" onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }) }>Show { this.state.genresHidden ? 'all' : 'less' } genres</button>
-                    }
+                    { this.expandButton() }
                 </div>
             </aside>
         );

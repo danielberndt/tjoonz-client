@@ -108,6 +108,7 @@ export default class extends Component {
                 } else {
                     if( page === 1 ) {
                         window.scrollTo( 0, 0 );
+                        this.repositionFilter();
                         this.setState({
                             results,
                             loadingMixes : false,
@@ -151,10 +152,23 @@ export default class extends Component {
         this.props.onPlayMix( id );
     }
 
+    // Recalculate StickyBox position with custom trigger
+    // https://github.com/codecks-io/react-sticky-box/issues/16
+    filterBoxRef = n => this.filterBox = n;
+    repositionFilter = () => {
+        setTimeout( () => {
+            this.filterBox.latestScrollY = 1;
+            this.filterBox.handleScroll();
+            this.filterBox.latestScrollY = -1;
+            this.filterBox.handleScroll();
+        }, 20 );
+    }
+
     render() {
         return (
             <div className="wrap layout">
                 <StickyBox
+                    ref={ this.filterBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
                     className="sidebar small"
                     offsetTop={ 56 }
                     offsetBottom={ 110 }
@@ -163,6 +177,7 @@ export default class extends Component {
                         filter={ this.state.query }
                         onFilterChange={ this.filterChanged }
                         onRelationChange={ this.relationChanged }
+                        onCollapse={ this.repositionFilter }
                         { ...this.props }
                     />
                 </StickyBox>
