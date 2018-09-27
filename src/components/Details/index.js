@@ -71,13 +71,26 @@ export default class extends Component {
                         </div>
                     </div>
                     <div className="meta">
-                        <div className="published"><span>{ this.publishDate }</span></div>
-                        <div className="title"><span dangerouslySetInnerHTML={{ __html: this.title }}></span></div>
-                        <div className="artists"><span dangerouslySetInnerHTML={{ __html: this.artists }}></span></div>
-                    </div>
-                    <div className="tax">
-                        <span className="genres">{ spanLabelsFor( this.genres ) }</span>
-                        <span className="tags">{ spanLabelsFor( this.tags ) }</span>
+                        <div className="published">
+                            <div className="header">Published</div>
+                            <div>{ this.publishDate }</div>
+                        </div>
+                        <div className="artists">
+                            <div className="header">Artists</div>
+                            <div dangerouslySetInnerHTML={{ __html: this.artists }}></div>
+                        </div>
+                        <div className="title">
+                            <div className="header">Title</div>
+                            <div dangerouslySetInnerHTML={{ __html: this.title }}></div>
+                        </div>
+                        <div className="genres">
+                            <div className="header">Genres</div>
+                            <div>{ spanLabelsFor( this.genres ) }</div>
+                        </div>
+                        <div className="tags">
+                            <div className="header">Tags</div>
+                            <div>{ spanLabelsFor( this.tags ) }</div>
+                        </div>
                     </div>
                 </div>
             </aside>
