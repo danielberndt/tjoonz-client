@@ -49,11 +49,12 @@
 }
 
 #navigation .dropdown button {
-    background-color: #0e1013;
+    background-color: transparent;
     outline: none;
 }
 
 #navigation .dropdown ul {
+    display: none;
     list-style: none;
     position: absolute;
     top: 100%;
@@ -63,8 +64,12 @@
     background-color: #0e1013;
 }
 
-#navigation .dropdown.collapsed ul {
-    display: none;
+#navigation .dropdown.expanded button {
+    background-color: #0e1013;
+}
+
+#navigation .dropdown.expanded ul {
+    display: block;
 }
 
 #navigation .dropdown li a {

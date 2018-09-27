@@ -11,7 +11,7 @@ export default class extends Component {
 
     render() {
         return (
-            <div className={ `dropdown ${ this.state.expanded ? '' : 'collapsed' }` }>
+            <div className={ `dropdown ${ this.state.expanded ? 'expanded' : '' }` }>
                 <button onClick={ () => this.setState({ expanded : !this.state.expanded }) }><FontAwesomeIcon icon={[ 'far', 'bars' ]} fixedWidth /></button>
                 <ul>
                     {
