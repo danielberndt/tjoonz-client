@@ -25,7 +25,8 @@
 }
 
 /* ITEMS */
-.mix-list-item {
+.mix-list-item,
+.mix-list-footer {
     height: 34px;
     margin-bottom: 2px;
     line-height: 34px;
@@ -94,4 +95,26 @@
 
 .mix-list-item .published {
     color: #8899a9;
+}
+
+div.mix-list-footer {
+    text-align: center;
+}
+
+button.mix-list-footer {
+    width: 100%;
+    line-height: normal;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #8899a9;
+    background-color: #242a32;
+}
+
+button.mix-list-footer:hover {
+    color: #cad1d9;
+}
+
+button.mix-list-footer span {
+    font-size: .85em;
+    vertical-align: 10%;
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Header from './Header';
 import Item from './Item';
 import './style.css';
@@ -45,9 +46,13 @@ export default class extends Component {
 
     footer = () => {
         if( this.props.isExhausted ) {
-            return <div>No more mixes&hellip;</div>;
+            return <div className="mix-list-footer">Still need more? Try relaxing the filter criteria.</div>;
         } else {
-            return <div>Loading mixes&hellip;</div>;
+            return (
+                <button className="mix-list-footer" onClick={ this.props.onScrollToBottom }>
+                    <FontAwesomeIcon icon={[ 'far', 'arrow-down' ]} fixedWidth /> <span>Load more mixes</span>
+                </button>
+            );
         }
     }
 
