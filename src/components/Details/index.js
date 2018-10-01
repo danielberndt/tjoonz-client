@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
       getFeaturedImage
@@ -87,16 +88,21 @@ export default class extends Component {
                             <img width="280" height="280" alt="" src={ this.artworkSrc } onLoad={ this.revealArtwork } />
                         </div>
                     </div>
-                    <div className="actions">
-                        <button className="primary">
-                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> <span>Tracklist</span>
-                        </button>
-                        <button className="secondary">
+                    <div className="controls">
+                        <button className="play">
                             <FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /> <span>Play</span>
                         </button>
-                        <button className="secondary">
+                        <button className="queue">
                             <FontAwesomeIcon icon={[ 'far', 'layer-plus' ]} fixedWidth /> <span>Queue</span>
                         </button>
+                        <button className="download">
+                            <FontAwesomeIcon icon={[ 'far', 'download' ]} fixedWidth /> <span>Download</span>
+                        </button>
+                    </div>
+                    <div className="controls">
+                        <NavLink className="tracklist" to={ `/mix/${ this.props.slug }` }>
+                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> <span>Tracklist and Comments</span>
+                        </NavLink>
                     </div>
                     <div className="meta">
                         <div className="published">
@@ -125,9 +131,9 @@ export default class extends Component {
                         </div>
                         <div className="description" dangerouslySetInnerHTML={{ __html: this.description }}></div>
                         <div className="stats">
-                            <span><FontAwesomeIcon icon={[ 'far', 'play-circle' ]} /> { this.plays }</span>&nbsp;
+                            <span><FontAwesomeIcon icon={[ 'far', 'play' ]} /> { this.plays }</span>&nbsp;
                             <span><FontAwesomeIcon icon={[ 'far', 'download' ]} /> { this.downloads }</span>&nbsp;
-                            <span><FontAwesomeIcon icon={[ 'far', 'signal' ]} /> { this.quality } <small>kbps</small></span>&nbsp;
+                            <span><FontAwesomeIcon icon={[ 'far', 'headphones' ]} /> { this.quality } <small>kbps</small></span>&nbsp;
                             <span><FontAwesomeIcon icon={[ 'far', 'hdd' ]} /> { this.fileSize } <small>MB</small></span>
                         </div>
                     </div>

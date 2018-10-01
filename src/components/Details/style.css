@@ -27,37 +27,54 @@
     display: none;
 }
 
-.mix-details .actions {
+.mix-details .controls {
     margin-top: 2px;
 }
 
-.mix-details .actions button {
-    width: 92px;
+.mix-details .controls button,
+.mix-details .controls a {
+    display: inline-block;
     height: 34px;
-    margin-left: 2px;
+    text-align: center;
+    text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
-}
-.mix-details .actions button:first-child {
-    margin-left: 0;
-}
-
-.mix-details .actions button.primary {
-    background-color: #448aff;
-}
-
-.mix-details .actions button.secondary {
     color: #8899a9;
     background-color: #242a32;
 }
 
-.mix-details .actions button.secondary:hover {
+.mix-details .controls button:hover,
+.mix-details .controls a:hover {
     color: #cad1d9;
 }
 
-.mix-details .actions button span {
+.mix-details .controls .play,
+.mix-details .controls .queue,
+.mix-details .controls .download {
+    width: 92px;
+}
+
+.mix-details .controls .queue,
+.mix-details .controls .download {
+    margin-left: 2px;
+}
+
+.mix-details .controls .tracklist {
+    width: 100%;
+}
+
+.mix-details .controls .tracklist svg {
+    vertical-align: 0;
+}
+
+.mix-details .controls button span,
+.mix-details .controls a span {
     font-size: .85em;
     vertical-align: 10%;
+}
+
+.mix-details .controls a span {
+    line-height: 34px;
 }
 
 .mix-details .meta > div {
