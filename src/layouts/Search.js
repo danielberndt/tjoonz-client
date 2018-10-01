@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StickyBox from '../StickyBox'; //'react-sticky-box';
+import StickyBox from 'react-sticky-box';
 import { parseRoute, createRoute } from '../utils/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
