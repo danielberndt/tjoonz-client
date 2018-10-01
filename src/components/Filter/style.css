@@ -16,9 +16,25 @@
 
 .filters .expand {
     width: 100%;
+    height: 34px;
+    margin-top: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #8899a9;
+    background-color: #242a32; /* #448aff */
+}
+
+.filters .expand:hover {
+    color: #cad1d9;
+}
+
+.filters .expand span {
+    font-size: .85em;
+    vertical-align: 10%;
 }
 
 .filters .header {
+    padding: 0 5px;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -29,32 +45,39 @@
 }
 
 .filters .header .toggle svg {
+    position: relative;
+    z-index: -1;
     margin: 0 6px;
 }
 
 .filter-item,
 .filter-autocomplete-input {
-    margin: 3px 0;
-    padding-right: 5px;
+    margin: 2px 0 0;
+    padding: 2px 5px;
     line-height: 1.5em;
 }
+
 .filter-item.loading,
 .filter-item.loading:hover,
 .filter-autocomplete-input {
     padding-left: 5px;
     background-color: #242a32;
 }
+
 .filter-autocomplete-input {
     width: 100%;
     border: 0;
     color: #cad1d9;
     border-bottom: 1px solid transparent;
 }
+
 .filter-autocomplete-input:focus {
-    /*outline: 1px solid #cad1d9;
-    outline-offset: -1px;*/
     outline: none;
     border-bottom: 1px solid #8899a9;
+}
+
+.filter-autocomplete-input::placeholder {
+    color: #8899a9;
 }
 
 .filter-item:hover {

@@ -7,6 +7,10 @@ import {
     , filterTerms
     , printTermNames
     , spanLabelsFor
+    , printNumber
+    , printDuration
+    , printBitRate
+    , printFileSize
 } from '../../utils/metadata';
 import './style.css';
 
@@ -31,6 +35,12 @@ export default class extends Component {
         this.artists = [];
         this.genres = [];
         this.tags = [];
+        this.plays = 0;
+        this.downloads = 0;
+        this.duration = '';
+        this.quality = '';
+        this.fileSize = '';
+        this.description = '';
         this.setState({
             blur : true
         });
@@ -45,6 +55,12 @@ export default class extends Component {
         this.artists = printTermNames( 'artist', this.props._embedded['wp:term'] );
         this.genres = filterTerms( 'genre', this.props._embedded['wp:term'] );
         this.tags = filterTerms( 'post_tag', this.props._embedded['wp:term'] );
+        this.plays = printNumber( this.props.meta._tjnz_plays );
+        this.downloads = printNumber( this.props.meta._tjnz_downloads );
+        this.duration = printDuration( this.props.meta._tjnz_duration );
+        this.quality = printBitRate( this.props.meta._tjnz_bitrate );
+        this.fileSize = printFileSize( this.props.meta._tjnz_filesize );
+        this.description = this.props.meta._yoast_wpseo_metadesc;
     }
 
     revealArtwork = () => {
@@ -73,13 +89,13 @@ export default class extends Component {
                     </div>
                     <div className="actions">
                         <button className="primary">
-                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> Tracklist
+                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> <span>Tracklist</span>
                         </button>
                         <button className="secondary">
-                            <FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /> Play
+                            <FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /> <span>Play</span>
                         </button>
                         <button className="secondary">
-                            <FontAwesomeIcon icon={[ 'far', 'layer-plus' ]} fixedWidth /> Queue
+                            <FontAwesomeIcon icon={[ 'far', 'layer-plus' ]} fixedWidth /> <span>Queue</span>
                         </button>
                     </div>
                     <div className="meta">
@@ -102,6 +118,17 @@ export default class extends Component {
                         <div className="tags">
                             <div className="header">Tags</div>
                             <div>{ spanLabelsFor( this.tags ) }</div>
+                        </div>
+                        <div className="duration">
+                            <div className="header">Duration</div>
+                            <div>{ this.duration }</div>
+                        </div>
+                        <div className="description" dangerouslySetInnerHTML={{ __html: this.description }}></div>
+                        <div className="stats">
+                            <span><FontAwesomeIcon icon={[ 'far', 'play-circle' ]} /> { this.plays }</span>&nbsp;
+                            <span><FontAwesomeIcon icon={[ 'far', 'download' ]} /> { this.downloads }</span>&nbsp;
+                            <span><FontAwesomeIcon icon={[ 'far', 'signal' ]} /> { this.quality } <small>kbps</small></span>&nbsp;
+                            <span><FontAwesomeIcon icon={[ 'far', 'hdd' ]} /> { this.fileSize } <small>MB</small></span>
                         </div>
                     </div>
                 </div>

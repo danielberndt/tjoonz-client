@@ -34,8 +34,8 @@ export default class extends Component {
                     <span dangerouslySetInnerHTML={{ __html: this.props.title.rendered }}></span>
                 </div>
                 <div className="labels">
-                    <span className="genres">{ spanLabelsFor( genres ) }</span>
-                    <span className="tags">{ spanLabelsFor( tags ) }</span>
+                    { spanLabelsFor( genres ) }
+                    { spanLabelsFor( tags ) }
                 </div>
                 <div className="published">
                     <span>{ publishDate }</span>

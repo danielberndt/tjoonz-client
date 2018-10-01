@@ -21,7 +21,7 @@ export default class extends Component {
             background: '#0e1013',
             position: 'fixed',
             overflowY: 'auto',
-            maxHeight: '110px',
+            maxHeight: '112px',
             width: '205px',
             cursor: 'pointer'
         };

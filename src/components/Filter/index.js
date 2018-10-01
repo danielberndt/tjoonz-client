@@ -90,18 +90,29 @@ export default class extends Component {
         if( this.state.loading ) {
             return null;
         } else {
-            return (
-                <button
-                    className="expand"
-                    onClick={ () => this.setState({ genresHidden : !this.state.genresHidden }, () => {
-                        if( this.state.genresHidden ) {
-                            this.props.onCollapse();
-                        }
-                    }) }
-                >
-                    Show { this.state.genresHidden ? 'all' : 'less' } genres
-                </button>
-            );
+            if( this.state.genresHidden ) {
+                return (
+                    <button
+                        className="expand"
+                        onClick={ () => this.setState({ genresHidden : false }, () => {
+                            if( this.state.genresHidden ) {
+                                this.props.onCollapse();
+                            }
+                        }) }
+                    >
+                        <FontAwesomeIcon icon={[ 'far', 'caret-square-down' ]} fixedWidth /> <span>Show all genres</span>
+                    </button>
+                );
+            } else {
+                return (
+                    <button
+                        className="expand"
+                        onClick={ () => this.setState({ genresHidden : true }, () => this.props.onCollapse() ) }
+                    >
+                        <FontAwesomeIcon icon={[ 'far', 'caret-square-up' ]} fixedWidth /> <span>Show less genres</span>
+                    </button>
+                );
+            }
         }
     }
 

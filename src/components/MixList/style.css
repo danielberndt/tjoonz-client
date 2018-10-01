@@ -42,7 +42,6 @@
 }
 
 .mix-list-item > div > span {
-    font-size: 0.9em;
     cursor: default;
 }
 
@@ -85,8 +84,12 @@
     padding-right: 10px;
 }
 
-.mix-list .published {
-    width: 65px;
+.mix-list .labels .label::before {
+    content: ', ';
+}
+
+.mix-list .labels .label:first-child::before {
+    content: '';
 }
 
 .mix-list-item .published {

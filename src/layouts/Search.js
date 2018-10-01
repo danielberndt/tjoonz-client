@@ -143,7 +143,7 @@ export default class extends Component {
                     .then( details => this.setState({
                         details,
                         loadingDetails : false
-                    }));
+                    }).then( () => this.repositionDetails() ));
             });
         }
     }
@@ -161,6 +161,18 @@ export default class extends Component {
             this.filterBox.handleScroll();
             this.filterBox.latestScrollY = -1;
             this.filterBox.handleScroll();
+        }, 20 );
+    }
+
+    // Recalculate StickyBox position with custom trigger
+    // https://github.com/codecks-io/react-sticky-box/issues/16
+    detailsBoxRef = n => this.detailsBox = n;
+    repositionDetails = () => {
+        setTimeout( () => {
+            this.detailsBox.latestScrollY = 1;
+            this.detailsBox.handleScroll();
+            this.detailsBox.latestScrollY = -1;
+            this.detailsBox.handleScroll();
         }, 20 );
     }
 
@@ -195,6 +207,7 @@ export default class extends Component {
                     />
                 </section>
                 <StickyBox
+                    ref={ this.detailsBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
                     className="sidebar medium"
                     offsetTop={ 56 }
                     offsetBottom={ 110 }
