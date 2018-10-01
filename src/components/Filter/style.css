@@ -81,7 +81,7 @@
 }
 
 .filter-item:hover {
-    background-color: #242a32; /*#13161a;*/
+    background-color: #242a32;
 }
 
 .filter-item .filter-item-count svg,
@@ -94,7 +94,7 @@
 }
 
 .filter-item.active {
-    background-color: #242a32; /*#1b2c42;*/
+    background-color: #242a32;
 }
 
 .filter-item label {

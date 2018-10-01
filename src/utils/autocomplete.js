@@ -25,7 +25,7 @@ export const renderItem = ( item, highlighted ) => (
         key={ item.id }
         style={{
             paddingLeft: '5px',
-            backgroundColor : highlighted ? '#1b2c42' : 'transparent' //#1b2c42
+            backgroundColor : highlighted ? '#242a32' : 'transparent'
         }}
     >
         <span className="filter-item-count" dangerouslySetInnerHTML={{ __html : item.count }}></span>
