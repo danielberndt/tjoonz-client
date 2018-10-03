@@ -4,8 +4,7 @@ import { parseRoute, createRoute } from '../utils/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
 import Details from '../components/Details';
-
-const resultsPerPage = 20;
+import constants from '../constants';
 
 export default class extends Component {
     constructor( props ) {
@@ -93,11 +92,11 @@ export default class extends Component {
             let url;
             if( segments.length ) {
                 // TEMPORARY FIX
-                // todo: change taxonomy registration in WordPress so I can avoid this
+                // @TODO: change taxonomy registration in WordPress so I can avoid this
                 // segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' )
-                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ resultsPerPage }&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
+                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ constants.search.resultsPerPage }&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
             } else {
-                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ resultsPerPage }&page=${ page }`;
+                url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ constants.search.resultsPerPage }&page=${ page }`;
             }
             fetch( url ).then( response => response.json() ).then( results => {
                 if( results.code === 'rest_post_invalid_page_number' ) {
@@ -182,8 +181,8 @@ export default class extends Component {
                 <StickyBox
                     ref={ this.filterBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
                     className="sidebar small"
-                    offsetTop={ 56 }
-                    offsetBottom={ 110 }
+                    offsetTop={ constants.sidebar.offset.top }
+                    offsetBottom={ constants.sidebar.offset.bottom }
                 >
                     <Filter
                         filter={ this.state.query }
@@ -209,8 +208,8 @@ export default class extends Component {
                 <StickyBox
                     ref={ this.detailsBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
                     className="sidebar medium"
-                    offsetTop={ 56 }
-                    offsetBottom={ 110 }
+                    offsetTop={ constants.sidebar.offset.top }
+                    offsetBottom={ constants.sidebar.offset.bottom }
                 >
                     <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
                 </StickyBox>

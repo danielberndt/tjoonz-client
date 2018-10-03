@@ -40,7 +40,7 @@ export const spanLabelsFor = terms => {
 
 export const linkLabelsFor = ( terms, history ) => {
     // TEMPORARY FIX
-    // todo: change taxonomy registration in WordPress so I can avoid this
+    // @TODO: change taxonomy registration in WordPress so I can avoid this
     return terms.map(( term, index ) => <button key={ index } className="label" onClick={ () => history.push( `/search?${ term.taxonomy.replace( 'genre', 'genres' ).replace( 'artist', 'artists' ) }=${ term.id }` ) }><span dangerouslySetInnerHTML={{ __html : term.name }}></span></button> );
 };
 

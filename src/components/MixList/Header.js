@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// @TODO: Make the column headers clickable and let them sort the results ASC / DESC.
 export default class extends Component {
     render() {
         return (
