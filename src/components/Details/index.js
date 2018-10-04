@@ -39,13 +39,13 @@ export default class extends Component {
 
     render() {
         if( this.state.data === null ) {
-            return <Loading />;
+            return <Loading match={ this.props.match } />;
         } else {
             return <Details { ...this.state.data } />;
         }
     }
 
-    _getMixData( slug ) {
+    _getMixData = slug => {
         if( slug === this._slug ) return;
 
         this._slug = slug;

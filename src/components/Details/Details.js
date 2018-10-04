@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Artwork from './Artwork';
+import Backlink from './Backlink';
 import { spanLabelsFor } from '../../utils/metadata';
 import './style.css';
 
@@ -38,11 +38,7 @@ export default class extends Component {
                             <FontAwesomeIcon icon={[ 'far', 'download' ]} fixedWidth /> <span>Download</span>
                         </button>
                     </div>
-                    <div className="controls">
-                        <NavLink className="tracklist" to={ `/mix/${ slug }` }>
-                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> <span>Tracklist and Comments</span>
-                        </NavLink>
-                    </div>
+                    <Backlink slug={ slug } />
                     <div className="meta">
                         <div className="published">
                             <div className="header">Published</div>

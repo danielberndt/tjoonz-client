@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Backlink from './Backlink';
 import './style.css';
 
 export default class extends Component {
@@ -19,11 +20,7 @@ export default class extends Component {
                             <FontAwesomeIcon icon={[ 'far', 'download' ]} fixedWidth /> <span>Download</span>
                         </button>
                     </div>
-                    <div className="controls">
-                        <a className="tracklist">
-                            <FontAwesomeIcon icon={[ 'far', 'list-ol' ]} fixedWidth /> <span>Tracklist and Comments</span>
-                        </a>
-                    </div>
+                    <Backlink slug={ this.props.match.params.slug } />
                     <div className="meta">
                         <div className="published">
                             <div className="header">Published</div>

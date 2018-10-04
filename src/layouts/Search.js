@@ -204,7 +204,10 @@ export default class extends Component {
                     offsetTop={ constants.sidebar.offset.top }
                     offsetBottom={ constants.sidebar.offset.bottom }
                 >
-                    <Details slug={ this.state.showDetailsFor } />
+                    <Details
+                        slug={ this.state.showDetailsFor }
+                        match={ this.props.match }
+                    />
                 </StickyBox>
             </div>
         );
