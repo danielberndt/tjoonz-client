@@ -25,7 +25,7 @@ export default class extends Component {
 
     componentDidUpdate( prevProps ) {
         if( prevProps.mixes.length === 0 && this.props.mixes.length > 0 ) {
-            this.props.onMounted( this.props.mixes[ 0 ].id );
+            this.props.onMounted( this.props.mixes[ 0 ].slug );
             this.ready = true;
         }
         if( this.props.page === 1 && prevProps.isLoading === true && this.props.isLoading === false ) {

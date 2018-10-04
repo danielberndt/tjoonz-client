@@ -79,8 +79,7 @@ export const getMixById = id => {
  */
 export const getMixBySlug = slug => {
     const url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&slug=${ slug }`;
-    console.log( url );
-    return fetch( url ).then( response => response.json() ).then( json => { console.log("fetched"); return json[ 0 ]});
+    return fetch( url ).then( response => response.json() ).then( json => json[ 0 ]);
 };
 
 /**

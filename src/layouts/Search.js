@@ -131,7 +131,6 @@ export default class extends Component {
     }
 
     getDetails = slug => {
-        console.log( slug );
         if( this.state.showDetailsFor !== slug ) {
             this.setState({
                 showDetailsFor : slug
