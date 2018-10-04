@@ -7,9 +7,7 @@ export default class extends Component {
         return (
             <aside>
                 <div className="mix-details">
-                    <div className="artwork">
-                        Loading&hellip;
-                    </div>
+                    <div className="artwork"></div>
                     <div className="controls">
                         <button className="play" disabled>
                             <FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /> <span>Play</span>

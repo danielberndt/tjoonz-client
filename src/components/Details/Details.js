@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getArtworkSrc, spanLabelsFor } from '../../utils/metadata';
+import Artwork from './Artwork';
+import { spanLabelsFor } from '../../utils/metadata';
 import './style.css';
 
 export default class extends Component {
@@ -21,17 +22,11 @@ export default class extends Component {
             , quality
             , fileSize
         } = this.props;
-        const placeholderSrc = getArtworkSrc( featuredImage, 'thumbnail' );
-        const artworkSrc = getArtworkSrc( featuredImage, 'medium' );
 
         return (
             <aside>
                 <div className="mix-details">
-                    <div className="artwork">
-                        <div className="clear" style={{ backgroundImage : `url("${ placeholderSrc }")` }}>
-                            <img width="280" height="280" alt="" src={ artworkSrc } onLoad={ this.revealArtwork } />
-                        </div>
-                    </div>
+                    <Artwork featuredImage={ featuredImage } />
                     <div className="controls">
                         <button className="play">
                             <FontAwesomeIcon icon={[ 'far', 'play' ]} fixedWidth /> <span>Play</span>

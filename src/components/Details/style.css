@@ -2,6 +2,7 @@
     height: 280px;
     line-height: 0;
     overflow: hidden;
+    background-color: #242a32;
 }
 
 .mix-details .artwork div {
@@ -9,12 +10,12 @@
     background-size: cover;
 }
 
-.mix-details .artwork .clear {
+.mix-details .artwork .placeholder {
     filter: none;
-    transition: filter 200ms linear;
+    transition: filter 150ms linear;
 }
 
-.mix-details .artwork .blur {
+.mix-details .artwork .placeholder.blur {
     filter: blur( 6px );
     transition: none;
 }
@@ -23,7 +24,7 @@
     object-fit: cover;
 }
 
-.mix-details .artwork .blur img {
+.mix-details .artwork .placeholder.blur img {
     display: none;
 }
 
