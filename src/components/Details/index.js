@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Details from './Details';
+import Loading from './Loading';
 import { getMixBySlug, extractMixData } from '../../utils/metadata';
 import './style.css';
 
@@ -38,7 +39,7 @@ export default class extends Component {
 
     render() {
         if( this.state.data === null ) {
-            return <div>Loading...</div>;
+            return <Loading />;
         } else {
             return <Details { ...this.state.data } />;
         }
