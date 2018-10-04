@@ -105,3 +105,8 @@ export const extractMixData = mix => {
         fileSize      : printFileSize( mix.meta._tjnz_filesize )
     };
 };
+
+export const getCommentsById = id => {
+    const url = `${ process.env.REACT_APP_WPAPI_URL }/comments?post=${ id }`;
+    return fetch( url ).then( response => response.json() );
+};

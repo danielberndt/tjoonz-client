@@ -8,7 +8,7 @@ export default class extends Component {
     _request = null;
     _slug = null;
     state = {
-        prevSlug : 0,
+        prevSlug : null,
         data     : null
     }
 
@@ -28,7 +28,7 @@ export default class extends Component {
     }
 
     componentDidUpdate( prevProps, prevState ) {
-        if( this.state.data === null && !this._currentId ) {
+        if( this.state.data === null ) {
             this._getMixData( this.props.slug );
         }
     }
@@ -54,7 +54,14 @@ export default class extends Component {
                 const data = extractMixData( mix );
                 this._request = null;
                 this.setState({ data });
+                this._publishMixData( data );
             }
         });
+    }
+
+    _publishMixData = data => {
+        if( this.props.onPublish ) {
+            this.props.onPublish( data );
+        }
     }
 };

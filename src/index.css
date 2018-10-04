@@ -86,11 +86,19 @@ section {
 }
 
 .sidebar.large {
-    flex-basis: 320px;
+    flex-basis: 400px;
 }
 
 .main {
     padding: 0 30px;
+}
+
+.main:first-child {
+    padding-left: 0;
+}
+
+.main:last-child {
+    padding-right: 0;
 }
 
 #player {
