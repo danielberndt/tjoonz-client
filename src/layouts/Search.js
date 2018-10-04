@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import StickyBox from 'react-sticky-box';
-import { parseRoute, createRoute } from '../utils/filter';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
 import Details from '../components/Details';
+import { parseRoute, createRoute } from '../utils/filter';
 import constants from '../constants';
 
 export default class extends Component {
@@ -106,6 +106,7 @@ export default class extends Component {
                     if( page === 1 ) {
                         window.scrollTo( 0, 0 );
                         this.repositionFilter();
+                        this.repositionDetails();
                         this.setState({
                             results,
                             loadingMixes : false,
@@ -132,6 +133,7 @@ export default class extends Component {
 
     getDetails = slug => {
         if( this.state.showDetailsFor !== slug ) {
+            this.repositionDetails();
             this.setState({
                 showDetailsFor : slug
             });
