@@ -19,7 +19,7 @@ export default class extends Component {
         const tags = filterTerms( 'post_tag', this.props._embedded['wp:term'] );
 
         return (
-            <div className="mix-list-item" onClick={ () => this.props.onClick( this.props.id ) }>
+            <div className="mix-list-item" onClick={ () => this.props.onClick( this.props.slug ) }>
                 <div className="artwork">
                     <img width="34" height="34" alt="" src={ artworkSrc } />
                 </div>

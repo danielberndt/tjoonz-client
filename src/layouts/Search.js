@@ -14,9 +14,7 @@ export default class extends Component {
             query,
             page           : 1,
             results        : [],
-            details        : {
-                id : 0
-            },
+            showDetailsFor : null,
             loadingMixes   : true,
             loadingDetails : false,
             exhausted      : false
@@ -132,17 +130,11 @@ export default class extends Component {
         })).then( this.getMixes );
     }
 
-    getDetails = id => {
-        if( this.state.details.id !== id ) {
+    getDetails = slug => {
+        console.log( slug );
+        if( this.state.showDetailsFor !== slug ) {
             this.setState({
-                loadingDetails : true
-            }).then( () => {
-                fetch( `${ process.env.REACT_APP_WPAPI_URL }/posts/${ id }?_embed` )
-                    .then( response => response.json() )
-                    .then( details => this.setState({
-                        details,
-                        loadingDetails : false
-                    }).then( () => this.repositionDetails() ));
+                showDetailsFor : slug
             });
         }
     }
@@ -211,7 +203,7 @@ export default class extends Component {
                     offsetTop={ constants.sidebar.offset.top }
                     offsetBottom={ constants.sidebar.offset.bottom }
                 >
-                    <Details { ...this.state.details } isLoading={ this.state.loadingDetails } />
+                    <Details slug={ this.state.showDetailsFor } />
                 </StickyBox>
             </div>
         );

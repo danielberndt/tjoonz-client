@@ -10,7 +10,7 @@ export const getArtworkSrc = ( featuredImage, size = 'full' ) => {
             case 'thumbnail':
                 return 'http://placehold.it/54x54?text=NO+ARTWORK';
             case 'medium':
-                return 'http://placehold.it/265x265?text=NO+ARTWORK';
+                return 'http://placehold.it/280x280?text=NO+ARTWORK';
             case 'full':
             default:
                 return 'http://placehold.it/960x960?text=NO+ARTWORK';
@@ -62,4 +62,47 @@ export const printBitRate = bitrate => {
 
 export const printFileSize = bytes => {
     return `${ Math.ceil( bytes / 1048576 )}`;
+};
+
+/**
+ * Retrieve mix data by its ID.
+ * @param {Number} id - ID of post with mix data.
+ */
+export const getMixById = id => {
+    const url = `${ process.env.REACT_APP_WPAPI_URL }/posts/${ id }?_embed`;
+    return fetch( url ).then( response => response.json() );
+};
+
+/**
+ * Retrieve mix data by its slug.
+ * @param {String} slug - Slug of post with mix data.
+ */
+export const getMixBySlug = slug => {
+    const url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&slug=${ slug }`;
+    console.log( url );
+    return fetch( url ).then( response => response.json() ).then( json => { console.log("fetched"); return json[ 0 ]});
+};
+
+/**
+ * Convert WordPress post response into Tjoonz mix data.
+ * @param {Object} mix - Post JSON with mix data.
+ */
+export const extractMixData = mix => {
+    return {
+        id            : mix.id,
+        slug          : mix.slug,
+        content       : mix.content.rendered,
+        description   : mix.meta._yoast_wpseo_metadesc,
+        title         : mix.title.rendered,
+        artists       : printTermNames( 'artist', mix._embedded[ 'wp:term' ]),
+        genres        : filterTerms( 'genre', mix._embedded[ 'wp:term' ]),
+        tags          : filterTerms( 'post_tag', mix._embedded[ 'wp:term' ]),
+        publishDate   : getPublishDate( mix.date_gmt ),
+        featuredImage : getFeaturedImage( mix._embedded[ 'wp:featuredmedia' ]),
+        plays         : printNumber( mix.meta._tjnz_plays ),
+        downloads     : printNumber( mix.meta._tjnz_downloads ),
+        duration      : printDuration( mix.meta._tjnz_duration ),
+        quality       : printBitRate( mix.meta._tjnz_bitrate ),
+        fileSize      : printFileSize( mix.meta._tjnz_filesize )
+    };
 };
