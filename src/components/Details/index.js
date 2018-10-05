@@ -34,7 +34,6 @@ export default class extends Component {
 
     componentDidUpdate( prevProps, prevState ) {
         if( this.state.data === null ) {
-            console.log( "getting after updating" );
             this._getMixData( this.props.slug );
         }
     }

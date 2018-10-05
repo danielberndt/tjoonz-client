@@ -85,7 +85,6 @@ export default class extends Component {
             if( this._slug === slug ) {
                 const data = extractMixData( mix );
                 this._request = null;
-                console.log( "setting Mix data" );
                 this.setState({ data });
             }
         });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import Loading from './Loading';
+import Comment from './Comment';
 import { getCommentsById } from '../../utils/metadata';
 //import './style.css';
 
@@ -42,7 +42,11 @@ export default class extends Component {
         if( this.state.data === null ) {
             return <div>Loading&hellip;</div>
         } else {
-            return <ul><li>{ JSON.stringify( this.state.data ) }</li></ul>;
+            return (
+                <div className="comment-list">
+                    { this.state.data.map( comment => <Comment key={ comment.id } { ...comment } /> ) }
+                </div>
+            );
         }
     }
 
