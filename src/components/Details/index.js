@@ -25,7 +25,7 @@ export default class extends Component {
 
     componentDidMount() {
         const { data } = this.props;
-        if( data === null ) {
+        if( !data ) {
             this._getMixData( this.props.slug );
         } else {
             this.setState({ data });
@@ -60,14 +60,7 @@ export default class extends Component {
                 const data = extractMixData( mix );
                 this._request = null;
                 this.setState({ data });
-                this._publishMixData( data );
             }
         });
-    }
-
-    _publishMixData = data => {
-        if( this.props.onPublish ) {
-            this.props.onPublish( data );
-        }
     }
 };
