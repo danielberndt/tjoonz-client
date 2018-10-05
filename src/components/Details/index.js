@@ -24,11 +24,17 @@ export default class extends Component {
     }
 
     componentDidMount() {
-        this._getMixData( this.props.slug );
+        const { data } = this.props;
+        if( data === null ) {
+            this._getMixData( this.props.slug );
+        } else {
+            this.setState({ data });
+        }
     }
 
     componentDidUpdate( prevProps, prevState ) {
         if( this.state.data === null ) {
+            console.log( "getting after updating" );
             this._getMixData( this.props.slug );
         }
     }
