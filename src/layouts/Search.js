@@ -96,13 +96,15 @@ export default class extends Component {
             } else {
                 url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&per_page=${ constants.search.resultsPerPage }&page=${ page }`;
             }
-            fetch( url ).then( response => response.json() ).then( results => {
-                if( results.code === 'rest_post_invalid_page_number' ) {
+            fetch( url ).then( async response => {
+                const totalPages = Number( response.headers.get( 'X-WP-TotalPages' ));
+                if( page > totalPages ) {
                     this.setState({
                         loadingMixes : false,
                         exhausted    : true
                     });
                 } else {
+                    const results = await response.json();
                     if( page === 1 ) {
                         window.scrollTo( 0, 0 );
                         this.repositionFilter();

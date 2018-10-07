@@ -4,7 +4,6 @@ import './style.css';
 
 export default class extends Component {
     render() {
-        console.log( this.props );
         const publishDate = getPublishDate( this.props.date_gmt );
 
         return (
