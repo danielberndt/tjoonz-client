@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Comment from './Comment';
 import { getCommentsById } from '../../utils/metadata';
-//import './style.css';
 
 export default class extends Component {
     _request = null;

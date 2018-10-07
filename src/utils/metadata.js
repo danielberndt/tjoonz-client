@@ -1,4 +1,5 @@
 import React from 'react';
+import constants from '../constants';
 
 export const getFeaturedImage = wpFeaturedMedia => wpFeaturedMedia && wpFeaturedMedia.length ? wpFeaturedMedia[ 0 ] : null;
 
@@ -106,7 +107,23 @@ export const extractMixData = mix => {
     };
 };
 
-export const getCommentsById = id => {
-    const url = `${ process.env.REACT_APP_WPAPI_URL }/comments?post=${ id }`;
-    return fetch( url ).then( response => response.json() );
+/**
+ * Gets all comments of a mix.
+ * @param {Number} id - Post ID to which comments belong.
+ */
+export const getCommentsById = ( id, page = 1 ) => {
+    // @TODO: This function is now almost exactly like `fetchPage` in './filter.js'... Need to code this DRY.
+    const url = `${ process.env.REACT_APP_WPAPI_URL }/comments?post=${ id }&page=${ page }&per_page=${ constants.search.resultsPerPage }`;
+    return fetch( url )
+        .then( async response => {
+            const currentPage = await response.json();
+            if( !currentPage.length ) {
+                return currentPage;
+            } else if( page >= Number( response.headers.get( 'X-WP-TotalPages' )) ) {
+                return currentPage;
+            } else {
+                return getCommentsById( id, ++page )
+                    .then( nextPage => [ ...currentPage, ...nextPage ] );
+            }
+        });
 };
