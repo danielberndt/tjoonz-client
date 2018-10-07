@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Artwork from './Artwork';
 import Backlink from './Backlink';
+import Title from './Title';
+import Description from './Description';
 import { spanLabelsFor } from '../../utils/metadata';
 import './style.css';
 
@@ -25,7 +27,7 @@ export default class extends Component {
 
         return (
             <aside>
-                <div className="mix-details">
+                <div className={ `mix-details ${ window.location.pathname === `/mix/${ slug }` ? '' : 'nowrap' }` }>
                     <Artwork featuredImage={ featuredImage } />
                     <div className="controls">
                         <button className="play">
@@ -48,10 +50,7 @@ export default class extends Component {
                             <div className="header">Artists</div>
                             <div dangerouslySetInnerHTML={{ __html: artists }}></div>
                         </div>
-                        <div className="title">
-                            <div className="header">Title</div>
-                            <div dangerouslySetInnerHTML={{ __html: title }}></div>
-                        </div>
+                        <Title { ...{ title, slug } } />
                         <div className="genres">
                             <div className="header">Genres</div>
                             <div>{ spanLabelsFor( genres ) }</div>
@@ -64,7 +63,7 @@ export default class extends Component {
                             <div className="header">Duration</div>
                             <div>{ duration }</div>
                         </div>
-                        <div className="description" dangerouslySetInnerHTML={{ __html: description }}></div>
+                        <Description { ...{ description, slug } } />
                         <div className="stats">
                             <span><FontAwesomeIcon icon={[ 'far', 'play' ]} /> { plays }</span>&nbsp;
                             <span><FontAwesomeIcon icon={[ 'far', 'download' ]} /> { downloads }</span>&nbsp;

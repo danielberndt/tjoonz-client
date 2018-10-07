@@ -1,3 +1,7 @@
+.mix-body h1:first-child {
+    margin-top: 0;
+}
+
 .mix-body blockquote {
     margin: 0;
     padding: 15px;
@@ -24,7 +28,7 @@
 
 .mix-body h2 {
     margin: 2em 0 0 45px;
-    font-size: .85em;
+    font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -33,7 +37,7 @@
     content: 'Tracklist';
     display: block;
     margin: 2em 0 0 15px;
-    font-size: .85em;
+    font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
 }

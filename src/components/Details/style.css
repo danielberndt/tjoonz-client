@@ -81,24 +81,26 @@
 .mix-details .meta > div {
     min-height: 34px;
     margin-top: 2px;
-    line-height: 34px;
+    padding: 6px 15px;
     background-color: #242a32;
 }
 
 .mix-details .meta .header {
     float: left;
-    width: 80px;
-    padding: 0 15px;
+    width: 65px;
+    line-height: 22px;
     font-size: 0.85em;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .mix-details .meta .header + div {
-    padding-right: 15px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.mix-details.nowrap .meta .header + div {
+    white-space: nowrap;
 }
 
 .mix-details .meta .label::before {
