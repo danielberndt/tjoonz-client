@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getPublishDate } from '../../utils/metadata';
+import './style.css';
 
 export default class extends Component {
     render() {

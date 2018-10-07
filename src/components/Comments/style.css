@@ -1,0 +1,36 @@
+.comment-item {
+    margin-top: 2px;
+    line-height: 0;
+}
+
+.comment-item::after {
+    content: '';
+    display: table;
+    clear: left;
+}
+
+.comment-item .avatar {
+    float: left;
+}
+
+.comment-body {
+    min-height: 48px;
+    margin-left: 48px;
+    padding: 6px 15px;
+    line-height: normal;
+    background-color: #242a32;
+}
+
+.comment-body .meta {
+    font-size: .85em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.comment-body .meta .author {
+    margin-left: 10px;
+}
+
+.comment-body .content p {
+    margin: 0;
+}
