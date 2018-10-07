@@ -1,6 +1,11 @@
 .comment-item {
     margin-top: 2px;
     line-height: 0;
+    background-color: #242a32;
+}
+
+.comment-item:first-child {
+    margin-top: 0;
 }
 
 .comment-item::after {
@@ -11,14 +16,13 @@
 
 .comment-item .avatar {
     float: left;
+    padding: 6px;
 }
 
 .comment-body {
-    min-height: 48px;
-    margin-left: 48px;
-    padding: 6px 15px;
+    min-height: 60px;
+    padding: 6px 15px 6px 60px;
     line-height: normal;
-    background-color: #242a32;
 }
 
 .comment-body .meta {

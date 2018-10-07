@@ -62,14 +62,14 @@ export default class extends Component {
                             />
                         </StickyBox>
                         <section className="main">
-                            <Comments { ...this.state.data } />
+                            <Body { ...this.state.data } />
                         </section>
                         <StickyBox
                             className="sidebar large"
                             offsetTop={ constants.sidebar.offset.top }
                             offsetBottom={ constants.sidebar.offset.bottom }
                         >
-                            <Body { ...this.state.data } />
+                            <Comments { ...this.state.data } />
                         </StickyBox>
                     </div>
                 );

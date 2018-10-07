@@ -42,9 +42,11 @@ export default class extends Component {
             return <div>Loading&hellip;</div>
         } else {
             return (
-                <div className="comment-list">
-                    { this.state.data.map( comment => <Comment key={ comment.id } { ...comment } /> ) }
-                </div>
+                <aside>
+                    <div className="comment-list">
+                        { this.state.data.map( comment => <Comment key={ comment.id } { ...comment } /> ) }
+                    </div>
+                </aside>
             );
         }
     }

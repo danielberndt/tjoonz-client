@@ -1,0 +1,49 @@
+.mix-body blockquote {
+    margin: 0;
+    padding: 15px;
+    background-color: #242a32;
+}
+
+.mix-body blockquote p:first-child {
+    margin-top: 0;
+}
+
+.mix-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.mix-body ul,
+.mix-body ol {
+    margin: 0 0 0 30px;
+    padding: 0;
+}
+
+.mix-body ol {
+    list-style: decimal-leading-zero outside;
+}
+
+.mix-body h2 {
+    margin: 2em 0 0 45px;
+    font-size: .85em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.mix-body :not( h2 ) + ol::before {
+    content: 'Tracklist';
+    display: block;
+    margin: 2em 0 0 15px;
+    font-size: .85em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.mix-body li {
+    margin-top: 2px;
+    padding: 6px 15px;
+    background-color: #242a32;
+}
+
+.mix-body li:first-child {
+    margin-top: 0;
+}
