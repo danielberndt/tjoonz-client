@@ -16,7 +16,6 @@
     margin-bottom: 0;
 }
 
-.mix-body ul,
 .mix-body ol {
     margin: 0 0 0 30px;
     padding: 0;
@@ -42,12 +41,12 @@
     text-transform: uppercase;
 }
 
-.mix-body li {
+.mix-body ol li {
     margin-top: 2px;
     padding: 6px 15px;
     background-color: #242a32;
 }
 
-.mix-body li:first-child {
+.mix-body ol li:first-child {
     margin-top: 0;
 }
