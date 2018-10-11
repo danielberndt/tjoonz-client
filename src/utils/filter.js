@@ -1,4 +1,5 @@
 import queryString from 'query-string';
+import config from '../config';
 import constants from '../constants';
 
 export const parseRoute = ( route, recognisedKeys = [] ) => {
@@ -37,7 +38,7 @@ export const fetchPage = ( endpoint, page, perPage = constants.search.resultsPer
     if( exclude.length ) {
         segments.push( `&exclude=${ exclude.join( ',' ) }` );
     }
-    return fetch( `${ process.env.REACT_APP_WPAPI_URL }/${ segments.join( '' ) }` )
+    return fetch( `${ config.apiBaseUrl }/${ segments.join( '' ) }` )
         .then( async response => {
             const currentPage = await response.json();
             if( !currentPage.length ) {

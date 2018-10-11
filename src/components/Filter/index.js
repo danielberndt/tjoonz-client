@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchPage } from '../../utils/filter';
 import Autocomplete from './Autocomplete';
 import Item from './Item';
+import config from '../../config';
 import './style.css';
 
 export default class extends Component {
@@ -48,7 +49,7 @@ export default class extends Component {
     }
 
     loadAvailableFilters = ( key, endpoint, top = 10 ) => {
-        return fetch( `${ process.env.REACT_APP_WPAPI_URL }/${ endpoint }?per_page=${ top }&page=1&orderby=count&order=desc` )
+        return fetch( `${ config.apiBaseUrl }/${ endpoint }?per_page=${ top }&page=1&orderby=count&order=desc` )
             .then( response => response.json() )
             .then( exclude => fetchPage( endpoint, 1, 100, true, exclude.map( term => term.id ) ).then( list => {
                 this.setState({

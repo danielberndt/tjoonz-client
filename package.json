@@ -22,10 +22,10 @@
     "react-sticky-box": "^0.7.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env REACT_APP_ENV=development react-scripts start",
     "build": "react-scripts build",
-    "test": "set CI=true && react-scripts test --env=jsdom --updateSnapshot",
-    "coverage": "react-scripts test --env=jsdom \"--coverage\"",
+    "test": "cross-env REACT_APP_ENV=testing react-scripts test --env=jsdom",
+    "coverage": "cross-env REACT_APP_ENV=testing react-scripts test --env=jsdom \"--coverage\"",
     "eject": "react-scripts eject"
   },
   "jest": {
@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-pro": "^5.3.1",
+    "cross-env": "^5.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest-cli": "^20.0.4"

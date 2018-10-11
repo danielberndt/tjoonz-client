@@ -1,4 +1,5 @@
 import React from 'react';
+import config from '../config';
 import constants from '../constants';
 
 export const getFeaturedImage = wpFeaturedMedia => wpFeaturedMedia && wpFeaturedMedia.length ? wpFeaturedMedia[ 0 ] : null;
@@ -70,7 +71,7 @@ export const printFileSize = bytes => {
  * @param {Number} id - ID of post with mix data.
  */
 export const getMixById = id => {
-    const url = `${ process.env.REACT_APP_WPAPI_URL }/posts/${ id }?_embed`;
+    const url = `${ config.apiBaseUrl }/posts/${ id }?_embed`;
     return fetch( url ).then( response => response.json() );
 };
 
@@ -79,7 +80,7 @@ export const getMixById = id => {
  * @param {String} slug - Slug of post with mix data.
  */
 export const getMixBySlug = slug => {
-    const url = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed&slug=${ slug }`;
+    const url = `${ config.apiBaseUrl }/posts?_embed&slug=${ slug }`;
     return fetch( url ).then( response => response.json() ).then( json => json[ 0 ]);
 };
 
@@ -113,7 +114,7 @@ export const extractMixData = mix => {
  */
 export const getCommentsById = ( id, page = 1 ) => {
     // @TODO: This function is now almost exactly like `fetchPage` in './filter.js'... Need to code this DRY.
-    const url = `${ process.env.REACT_APP_WPAPI_URL }/comments?post=${ id }&page=${ page }&per_page=${ constants.search.resultsPerPage }`;
+    const url = `${ config.apiBaseUrl }/comments?post=${ id }&page=${ page }&per_page=${ constants.search.resultsPerPage }`;
     return fetch( url )
         .then( async response => {
             const currentPage = await response.json();

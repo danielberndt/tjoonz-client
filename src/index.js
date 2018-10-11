@@ -5,6 +5,7 @@ import { library as icons } from '@fortawesome/fontawesome-svg-core';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
+import config from './config';
 import './index.css';
 import Header from './components/Header';
 import Player from './components/Player';
@@ -36,7 +37,7 @@ class Root extends React.Component {
     }
 
     componentDidMount() {
-        const dataURL = `${ process.env.REACT_APP_WPAPI_URL }/posts?_embed`;
+        const dataURL = `${ config.apiBaseUrl }/posts?_embed`;
         fetch( dataURL )
             .then( response => response.json() )
             .then( mixes => {
