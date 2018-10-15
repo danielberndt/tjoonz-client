@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { getPublishDate } from '../../utils/metadata';
+import { toPublishDate } from '../../utils/format';
 import './style.css';
 
 export default class extends Component {
     render() {
-        const publishDate = getPublishDate( this.props.date_gmt );
+        const publishDate = toPublishDate( this.props.date_gmt );
 
         return (
             <div className="comment-item">

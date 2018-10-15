@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Details from './Details';
 import Loading from './Loading';
-import { getMixBySlug, extractMixData } from '../../utils/metadata';
+import { fetchMixBySlug } from '../../utils/fetch';
+import { extractMixData } from '../../utils/Mix';
 import './style.css';
 
 export default class extends Component {
@@ -54,7 +55,7 @@ export default class extends Component {
         if( slug === this._slug ) return;
 
         this._slug = slug;
-        this._request = getMixBySlug( slug ).then( mix => {
+        this._request = fetchMixBySlug( slug ).then( mix => {
             if( this._slug === slug ) {
                 const data = extractMixData( mix );
                 this._request = null;

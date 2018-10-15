@@ -4,7 +4,7 @@ import Artwork from './Artwork';
 import Backlink from './Backlink';
 import Title from './Title';
 import Description from './Description';
-import { spanLabelsFor } from '../../utils/metadata';
+import { toTermSpanLabels } from '../../utils/format';
 import './style.css';
 
 export default class extends Component {
@@ -53,11 +53,11 @@ export default class extends Component {
                         <Title { ...{ title, slug } } />
                         <div className="genres">
                             <div className="header">Genres</div>
-                            <div>{ spanLabelsFor( genres ) }</div>
+                            <div>{ toTermSpanLabels( genres ) }</div>
                         </div>
                         <div className="tags">
                             <div className="header">Tags</div>
-                            <div>{ spanLabelsFor( tags ) }</div>
+                            <div>{ toTermSpanLabels( tags ) }</div>
                         </div>
                         <div className="duration">
                             <div className="header">Duration</div>

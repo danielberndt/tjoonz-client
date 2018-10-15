@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getArtworkSrc } from '../../utils/metadata';
+import { extractArtworkSrc } from '../../utils/extract';
 
 export default class extends Component {
     state = {
@@ -8,8 +8,8 @@ export default class extends Component {
 
     render() {
         const { featuredImage } = this.props;
-        const placeholderSrc = getArtworkSrc( featuredImage, 'thumbnail' );
-        const artworkSrc = getArtworkSrc( featuredImage, 'medium' );
+        const placeholderSrc = extractArtworkSrc( featuredImage, 'thumbnail' );
+        const artworkSrc = extractArtworkSrc( featuredImage, 'medium' );
 
         return (
             <div className="artwork">

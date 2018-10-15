@@ -3,7 +3,7 @@ import StickyBox from 'react-sticky-box';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
 import Details from '../components/Details';
-import { parseRoute, createRoute } from '../utils/filter';
+import { parseRoute, createRoute } from '../utils/route';
 import config from '../config';
 import constants from '../constants';
 
@@ -93,9 +93,9 @@ export default class extends Component {
                 // TEMPORARY FIX
                 // @TODO: change taxonomy registration in WordPress so I can avoid this
                 // segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' )
-                url = `${ config.apiBaseUrl }/posts?_embed&per_page=${ constants.search.resultsPerPage }&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
+                url = `${ config.apiBaseUrl }/posts?_embed&per_page=${ constants.pagination.resultsPerPage }&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
             } else {
-                url = `${ config.apiBaseUrl }/posts?_embed&per_page=${ constants.search.resultsPerPage }&page=${ page }`;
+                url = `${ config.apiBaseUrl }/posts?_embed&per_page=${ constants.pagination.resultsPerPage }&page=${ page }`;
             }
             fetch( url ).then( async response => {
                 const totalPages = Number( response.headers.get( 'X-WP-TotalPages' ));

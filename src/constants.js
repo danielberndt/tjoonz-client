@@ -23,8 +23,12 @@ constants.sidebar = {
 };
 
 // CONFIGURATION
-constants.search = {
+constants.pagination = {
     resultsPerPage : 20
+};
+
+constants.comments = {
+    offset : 5
 };
 
 export default constants;

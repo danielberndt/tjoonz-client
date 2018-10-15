@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Comment from './Comment';
-import { getCommentsById } from '../../utils/metadata';
+import { fetchCommentsById } from '../../utils/fetch';
 
 export default class extends Component {
     _request = null;
@@ -55,7 +55,7 @@ export default class extends Component {
         if( id === this._id ) return;
 
         this._id = id;
-        this._request = getCommentsById( id ).then( comments => {
+        this._request = fetchCommentsById( id ).then( comments => {
             if( this._id === id ) {
                 this._request = null;
                 this.setState({ data : comments });

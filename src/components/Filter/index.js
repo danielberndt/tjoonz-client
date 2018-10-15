@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fetchPage } from '../../utils/filter';
+import { fetchPage } from '../../utils/fetch';
 import Autocomplete from './Autocomplete';
 import Item from './Item';
-import config from '../../config';
 import './style.css';
 
 export default class extends Component {
@@ -48,15 +47,20 @@ export default class extends Component {
         Promise.all([ g, a, t ]).then( () => this.setState({ loading : false }));
     }
 
-    loadAvailableFilters = ( key, endpoint, top = 10 ) => {
-        return fetch( `${ config.apiBaseUrl }/${ endpoint }?per_page=${ top }&page=1&orderby=count&order=desc` )
-            .then( response => response.json() )
-            .then( exclude => fetchPage( endpoint, 1, 100, true, exclude.map( term => term.id ) ).then( list => {
-                this.setState({
-                    filters : Object.assign( {}, this.state.filters, {[ key ] : [ ...exclude, ...list ] })
-                })
-            }))
-        ;
+    loadAvailableFilters = async ( key, endpoint, top = 10 ) => {
+        const topOptions = {
+            per_page : top,
+            orderby  : 'count',
+            order    : 'desc'
+        };
+        const topResults = await fetchPage( endpoint, 1, topOptions, false );
+        const otherOptions = {
+            per_page : 100,
+            exclude : topResults.map( term => term.id ).join( ',' )
+        };
+        return fetchPage( endpoint, 1, otherOptions, true ).then( otherResults => this.setState({
+            filters : Object.assign( {}, this.state.filters, {[ key ] : [ ...topResults, ...otherResults ] })
+        }));
     }
 
     relationChanged = key => {

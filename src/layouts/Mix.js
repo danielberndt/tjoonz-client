@@ -4,7 +4,8 @@ import StickyBox from 'react-sticky-box';
 import Details from '../components/Details';
 import Body from '../components/Body';
 import Comments from '../components/Comments';
-import { getMixBySlug, extractMixData } from '../utils/metadata';
+import { fetchMixBySlug } from '../utils/fetch';
+import { extractMixData } from '../utils/Mix';
 import constants from '../constants';
 
 export default class extends Component {
@@ -81,7 +82,7 @@ export default class extends Component {
         if( slug === this._slug ) return;
 
         this._slug = slug;
-        this._request = getMixBySlug( slug ).then( mix => {
+        this._request = fetchMixBySlug( slug ).then( mix => {
             if( this._slug === slug ) {
                 const data = extractMixData( mix );
                 this._request = null;
