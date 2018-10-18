@@ -3,8 +3,8 @@ import StickyBox from 'react-sticky-box';
 import Filter from '../components/Filter';
 import MixList from '../components/MixList';
 import Details from '../components/Details';
-import { parseRoute, createRoute } from '../utils/route';
-import config from '../config';
+import { parseRoute, createRoute } from '../utils/Search';
+import { fetchMixesByQuery } from '../utils/fetch';
 import constants from '../constants';
 
 export default class extends Component {
@@ -43,10 +43,10 @@ export default class extends Component {
     }
 
     componentDidMount() {
-        this.getMixes();
+        this._getMixes();
     }
 
-    filterChanged = ( key, changedId, checked, relation ) => {
+    _filterChanged = ( key, changedId, checked, relation ) => {
         const query = parseRoute( this.props.location.search, this.props.recognisedKeys );
         if( query[ key ] ) {
             query[ key ].and = relation;
@@ -58,99 +58,79 @@ export default class extends Component {
                 ids : [ changedId ]
             };
         }
-        this.resetPagination( query );
+        this._resetPagination( query );
     }
 
-    relationChanged = ( key, and ) => {
+    _relationChanged = ( key, and ) => {
         const query = parseRoute( this.props.location.search, this.props.recognisedKeys );
         if( query[ key ] ) {
             query[ key ].and = and;    
-            this.resetPagination( query );
+            this._resetPagination( query );
         }
     }
 
-    resetPagination = query => {
+    _resetPagination = query => {
         const routePath = createRoute( query );
         this.props.history.replace( routePath );
         this.setState({
             query,
             page : 1
-        }).then( this.getMixes );
+        }).then( this._getMixes );
     }
 
-    getMixes = () => {
+    _getMixes = () => {
         this.setState({
             loadingMixes : true
-        }).then( () => {
-            const { query, page } = this.state;
-            const segments = Object.keys( query ).filter( key => query[ key ] && query[ key ].ids.length ).map( key => {
+        }).then( async () => {
+            const { page, query } = this.state;
+            const options = Object.keys( query ).filter( key => query[ key ] && query[ key ].ids.length ).reduce(( prev, key ) => {
+                // @TODO
                 // Must use ',' separator for now, until I fix WP API to accept better taxonomy filters.
                 // Using ',' will result in a fixed "or" relationship from WP. So, yeah. Not great.
-                return `${ key }=${ query[ key ].ids.join( ',' ) }`;
-            });
-            let url;
-            if( segments.length ) {
-                // TEMPORARY FIX
-                // @TODO: change taxonomy registration in WordPress so I can avoid this
-                // segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' )
-                url = `${ config.apiBaseUrl }/posts?_embed&per_page=${ constants.pagination.resultsPerPage }&page=${ page }&${ segments.join( '&' ).replace( 'genres', 'genre' ).replace( 'artists', 'artist' ) }`;
+                return Object.assign( prev, { [ key ] : query[ key ].ids.join( ',' ) } )
+            }, {});
+            const results = await fetchMixesByQuery( page, options );
+            if( page === 1 ) {
+                window.scrollTo( 0, 0 );
+                this._repositionFilter();
+                this._repositionDetails();
+                this.setState({
+                    results,
+                    loadingMixes : false,
+                    exhausted    : false
+                });
             } else {
-                url = `${ config.apiBaseUrl }/posts?_embed&per_page=${ constants.pagination.resultsPerPage }&page=${ page }`;
+                this.setState( prevState => Object.assign( {}, prevState, {
+                    results      : [ ...prevState.results, ...results ],
+                    loadingMixes : false
+                }));
             }
-            fetch( url ).then( async response => {
-                const totalPages = Number( response.headers.get( 'X-WP-TotalPages' ));
-                if( page > totalPages ) {
-                    this.setState({
-                        loadingMixes : false,
-                        exhausted    : true
-                    });
-                } else {
-                    const results = await response.json();
-                    if( page === 1 ) {
-                        window.scrollTo( 0, 0 );
-                        this.repositionFilter();
-                        this.repositionDetails();
-                        this.setState({
-                            results,
-                            loadingMixes : false,
-                            exhausted    : false
-                        });
-                    } else {
-                        this.setState( prevState => {
-                            return Object.assign( {}, prevState, {
-                                results      : [ ...prevState.results, ...results ],
-                                loadingMixes : false
-                            });
-                        });
-                    }
-                }
-            }).catch( error => console.log( error ));
         });
     }
 
-    getNextPage = () => {
+    _getNextPage = () => {
         this.setState( prevState => ({
             page : prevState.page + 1
-        })).then( this.getMixes );
+        })).then( this._getMixes );
     }
 
-    getDetails = slug => {
+    _getDetails = slug => {
         if( this.state.showDetailsFor !== slug ) {
-            this.repositionDetails();
+            this._repositionDetails();
             this.setState({
                 showDetailsFor : slug
             });
         }
     }
 
-    playMix = ( id, event ) => {
+    _playMix = ( id, event ) => {
         this.props.onPlayMix( id );
     }
 
     // Recalculate StickyBox position with custom trigger
     // https://github.com/codecks-io/react-sticky-box/issues/16
-    filterBoxRef = n => this.filterBox = n;
-    repositionFilter = () => {
+    _filterBoxRef = n => this.filterBox = n;
+    _repositionFilter = () => {
         setTimeout( () => {
             this.filterBox.latestScrollY = 1;
             this.filterBox.handleScroll();
@@ -161,8 +141,8 @@ export default class extends Component {
 
     // Recalculate StickyBox position with custom trigger
     // https://github.com/codecks-io/react-sticky-box/issues/16
-    detailsBoxRef = n => this.detailsBox = n;
-    repositionDetails = () => {
+    _detailsBoxRef = n => this.detailsBox = n;
+    _repositionDetails = () => {
         setTimeout( () => {
             this.detailsBox.latestScrollY = 1;
             this.detailsBox.handleScroll();
@@ -175,16 +155,16 @@ export default class extends Component {
         return (
             <div className="wrap layout">
                 <StickyBox
-                    ref={ this.filterBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
+                    ref={ this._filterBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
                     className="sidebar small"
                     offsetTop={ constants.sidebar.offset.top }
                     offsetBottom={ constants.sidebar.offset.bottom }
                 >
                     <Filter
                         filter={ this.state.query }
-                        onFilterChange={ this.filterChanged }
-                        onRelationChange={ this.relationChanged }
-                        onCollapse={ this.repositionFilter }
+                        onFilterChange={ this._filterChanged }
+                        onRelationChange={ this._relationChanged }
+                        onCollapse={ this._repositionFilter }
                         { ...this.props }
                     />
                 </StickyBox>
@@ -195,14 +175,14 @@ export default class extends Component {
                         history={ this.props.history }
                         isLoading={ this.state.loadingMixes }
                         isExhausted={ this.state.exhausted }
-                        onScrollToBottom={ this.getNextPage }
-                        onItemClick={ this.getDetails }
-                        onItemPlay={ this.playMix }
-                        onMounted={ this.getDetails }
+                        onScrollToBottom={ this._getNextPage }
+                        onItemClick={ this._getDetails }
+                        onItemPlay={ this._playMix }
+                        onMounted={ this._getDetails }
                     />
                 </section>
                 <StickyBox
-                    ref={ this.detailsBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
+                    ref={ this._detailsBoxRef } // https://github.com/codecks-io/react-sticky-box/issues/16
                     className="sidebar medium"
                     offsetTop={ constants.sidebar.offset.top }
                     offsetBottom={ constants.sidebar.offset.bottom }

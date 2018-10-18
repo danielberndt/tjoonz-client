@@ -36,9 +36,7 @@ export const toTermSpanLabels = terms => {
  * @returns {String} All term names.
  */
 export const toTermlinkLabels = ( terms, history ) => {
-    // TEMPORARY FIX
-    // @TODO: change taxonomy registration in WordPress so I can avoid this
-    return terms.map(( term, index ) => <button key={ index } className="label" onClick={ () => history.push( `/search?${ term.taxonomy.replace( 'genre', 'genres' ).replace( 'artist', 'artists' ) }=${ term.id }` ) }><span dangerouslySetInnerHTML={{ __html : term.name }}></span></button> );
+    return terms.map(( term, index ) => <button key={ index } className="label" onClick={ () => history.push( `/search?${ term.taxonomy }=${ term.id }` ) }><span dangerouslySetInnerHTML={{ __html : term.name }}></span></button> );
 };
 
 /**

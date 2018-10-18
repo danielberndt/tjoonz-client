@@ -44,6 +44,17 @@ export const fetchMixBySlug = slug => {
     return fetch( url ).then( response => response.json() ).then( json => json[ 0 ]);
 };
 
+
+export const fetchMixesByQuery = ( page, query, recursive = false ) => {
+    const options = Object.assign( {}, _fetchMixesOptions, query );
+    return fetchPage( 'posts', page, options, recursive );
+};
+
+const _fetchMixesOptions = {
+    _embed   : 1,
+    per_page : constants.pagination.resultsPerPage
+};
+
 /**
  * Gets all comments of a mix.
  * @param {Number} id - Post ID to which comments belong.

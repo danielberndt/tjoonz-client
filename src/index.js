@@ -64,7 +64,7 @@ class Root extends React.Component {
                     <Switch>
                         <Route exact path="/" component={ Home } />
                         <Route path="/mix/:slug" component={ Mix } />
-                        <Route path="/search" render={ props => this.renderRouteComponent( Search, props, { recognisedKeys : [ 'artists', 'genres', 'tags' ] } ) } />
+                        <Route path="/search" render={ props => this.renderRouteComponent( Search, props, { recognisedKeys : [ 'artist', 'genre', 'tags' ] } ) } />
                         <Route path="/chart" component={ layouts.Double } />
                         <Route path="/my" component={ layouts.Double } />
                         <Route path="/about" component={ layouts.Single } />
