@@ -91,13 +91,12 @@ export default class extends Component {
             }, {});
             const results = await fetchMixesByQuery( page, options );
             if( page === 1 ) {
-                window.scrollTo( 0, 0 );
-                this._repositionFilter();
-                this._repositionDetails();
                 this.setState({
                     results,
                     loadingMixes : false,
                     exhausted    : false
+                }).then( () => {
+                    window.scrollTo({ top : 0, behavior : 'smooth' });
                 });
             } else {
                 this.setState( prevState => Object.assign( {}, prevState, {
@@ -164,7 +163,7 @@ export default class extends Component {
                         filter={ this.state.query }
                         onFilterChange={ this._filterChanged }
                         onRelationChange={ this._relationChanged }
-                        onCollapse={ this._repositionFilter }
+                        //onCollapse={ this._repositionFilter }
                         { ...this.props }
                     />
                 </StickyBox>

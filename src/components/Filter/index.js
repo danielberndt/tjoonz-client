@@ -108,7 +108,7 @@ export default class extends Component {
                 return (
                     <button
                         className="expand"
-                        onClick={ () => this.setState({ genresHidden : true }, () => this.props.onCollapse() ) }
+                        onClick={ () => this.setState({ genresHidden : true }) }
                     >
                         <FontAwesomeIcon icon={[ 'far', 'caret-square-up' ]} fixedWidth /> <span>Show less genres</span>
                     </button>
@@ -194,22 +194,20 @@ export default class extends Component {
                                     onToggle={ this.filterChanged }
                                 /> ))
                     }
-                    <div className={ this.state.genresHidden ? 'hidden' : '' }>
-                        {
-                            this.state.loading ? null : this.state.filters.genre
-                                .slice( 10 )
-                                .map( genre => (
-                                    <Item
-                                        key={ `genre-${ genre.id }` }
-                                        filterKey="genre"
-                                        id={ genre.id }
-                                        name={ genre.name }
-                                        count={ genre.count }
-                                        active={ Boolean( this.props.filter.genre ) && Boolean( this.props.filter.genre.ids.indexOf( genre.id ) !== -1 )}
-                                        onToggle={ this.filterChanged }
-                                    /> ))
-                        }
-                    </div>
+                    {
+                        this.state.loading || this.state.genresHidden ? null : this.state.filters.genre
+                            .slice( 10 )
+                            .map( genre => (
+                                <Item
+                                    key={ `genre-${ genre.id }` }
+                                    filterKey="genre"
+                                    id={ genre.id }
+                                    name={ genre.name }
+                                    count={ genre.count }
+                                    active={ Boolean( this.props.filter.genre ) && Boolean( this.props.filter.genre.ids.indexOf( genre.id ) !== -1 )}
+                                    onToggle={ this.filterChanged }
+                                /> ))
+                    }
                     { this.expandButton() }
                 </div>
             </aside>
