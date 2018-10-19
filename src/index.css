@@ -1,111 +1,112 @@
-@import url('https://fonts.googleapis.com/css?family=Abel');
+@import url("https://fonts.googleapis.com/css?family=Abel");
 html {
-    font-size: 15px;
-    font-family: 'Abel', sans-serif;
-    font-weight: 100;
-    color: #cad1d9;
-    overflow-y: scroll;
+  font-size: 15px;
+  font-family: "Abel", sans-serif;
+  font-weight: 100;
+  color: #cad1d9;
+  min-height: 100vh;
 }
 body {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    background-color: #1a1f24;
+  margin: 0;
+  background-color: #1a1f24;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-weight: normal;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
 }
 
 button {
-    width: auto;
-    margin: 0;
-    padding: 0;
-    border: none;
-    overflow: visible;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    line-height: normal;
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
-    -webkit-appearance: none;
-    cursor: pointer;
-    outline: none;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  cursor: pointer;
+  outline: none;
 }
 
 button:disabled {
-    cursor: initial;
+  cursor: initial;
 }
 
 .app * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .wrap {
-    width: 1440px;
-    padding-left: 40px;
-    padding-right: 40px;
-    margin: 0 auto;
+  width: 1440px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto;
 }
 
 #navigation {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .layout {
-    display: flex;
-    padding-top: 56px;
-    padding-bottom: 110px;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-content: flex-start;
-    align-items: flex-start;
+  display: flex;
+  padding-top: 56px;
+  padding-bottom: 110px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
 }
 
 section {
-    flex-grow: 1;
-    flex-shrink: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .sidebar {
-    flex-grow: 0;
-    flex-shrink: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .sidebar.small {
-    flex-basis: 220px;
+  flex-basis: 220px;
 }
 
 .sidebar.medium {
-    width: 280px;
-    flex-basis: 280px;
+  width: 280px;
+  flex-basis: 280px;
 }
 
 .sidebar.large {
-    flex-basis: 400px;
+  flex-basis: 400px;
 }
 
 .main {
-    padding: 0 30px;
+  padding: 0 30px;
 }
 
 .main:first-child {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 .main:last-child {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 #player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background-color: #0e1013;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #0e1013;
 }
